@@ -54,6 +54,26 @@
             position: absolute;
             right: 10px;
             top: 18px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #e7e5eb;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 12px;
+            color: #1d1b21 ;
+            transition: background-color 0.3s;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .button:hover {
+            background-color: #d0d0d0;
         }
 
         .content {
@@ -78,38 +98,20 @@
 
         @keyframes fadeIn {
             from {
-                opacity: 0.9;
+                opacity: 0.8;
             }
             to {
                 opacity: 0.9;
             }
         }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
     </style>
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Register</a>
-                @endif
-            @endauth
-        </div>
-    @endif
+    <div class="top-right">
+        <a href="{{ route('login') }}" class="button">Login</a>
+        <a href="{{ route('register') }}" class="button">Register</a>
+    </div>
 
     <div class="content">
         <div class="title">
