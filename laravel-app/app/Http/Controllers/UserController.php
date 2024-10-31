@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    //
+    public function getRegisterPage(): View
+    {
+        return view('guest.register');
+    }
 }

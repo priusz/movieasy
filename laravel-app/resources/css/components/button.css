@@ -1,13 +1,17 @@
 .button {
     background-color: #e7e5eb;
+    border: none;
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 900;
+    text-align: center;
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
+    display: inline-block;
     border-radius: 12px;
     color: #1d1b21 ;
+    cursor: pointer;
     transition: background-color 0.3s;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
 }
