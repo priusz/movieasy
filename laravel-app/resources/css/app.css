@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'pages/welcome.css';
+@import 'components/basic.css';
+@import 'components/body.css';
+@import 'components/button.css';
+@import 'components/navbar.css';
+
+/*@tailwind base;*/
+/*@tailwind components;*/
+/*@tailwind utilities;*/
