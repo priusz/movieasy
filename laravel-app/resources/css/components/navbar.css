@@ -1,0 +1,7 @@
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+    display: flex;
+    gap: 10px;
+}
