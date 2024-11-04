@@ -26,7 +26,7 @@
 <div class="flex-center position-ref full-height">
     <div class="top-right">
         <a href="{{ route('login') }}" class="button">Login</a>
-        <a href="{{ route('register') }}" class="button">Register</a>
+        <a href="{{ route('register') }}" class="button">Registration</a>
     </div>
     <div class="content form-container">
         <div class="form-title">
@@ -67,7 +67,7 @@
                 @enderror
             </div>
             <a href="{{ route('welcome') }}" class="button">Back</a>
-            <a href="#" class="button" id="register-button">Register</a>
+            <a href="#" class="button" id="register-button">Submit</a>
         </form>
     </div>
 </div>
