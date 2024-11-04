@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Services\UserService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -24,14 +25,14 @@ class UserController
 
     public function register(Request $request) : RedirectResponse
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|lowercase|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/',
         ]);
 
         try {
-            $success = $this->userService->createUser($validatedData);
+            $success = $this->userService->createUser($request);
 
             if ($success) {
                 if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
@@ -42,8 +43,8 @@ class UserController
                 return redirect()->back()->with('error', 'Registration failed!')->withInput();
             }
 
-        } catch (\Exception $e) {
-            Log::error('Reg error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            Log::error('Registration error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error!')->withInput();
         }
     }

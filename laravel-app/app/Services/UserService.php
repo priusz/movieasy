@@ -6,7 +6,7 @@ use App\Repositories\UserRepository;
 
 class UserService
 {
-    protected $userRepository;
+    protected UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
