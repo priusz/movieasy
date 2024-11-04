@@ -13,11 +13,7 @@
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-    <div class="top-right">
-        <a href="{{ route('login') }}" class="button">Login</a>
-        <a href="{{ route('register') }}" class="button">Register</a>
-    </div>
-
+    @include('navbar')
     <div class="content">
         <div class="welcome-title">
             MoviEasy
