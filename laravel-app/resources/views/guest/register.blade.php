@@ -12,6 +12,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
+@if(session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <div class="flex-center position-ref full-height">
     <div class="top-right">
         <a href="{{ route('login') }}" class="button">Login</a>
@@ -26,19 +37,34 @@
             @csrf
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+                @error('name')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
+
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+                @error('email')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
+
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
+                @error('password')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
+
             <div class="form-group">
                 <label for="password_confirmation">Confirm Password:</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required>
+                @error('password_confirmation')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
             <a href="{{ route('welcome') }}" class="button">Back</a>
             <a href="#" class="button" id="register-button">Register</a>

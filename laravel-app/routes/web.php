@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Guest\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,12 +11,12 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [UserController::class, 'getRegisterPage'])
         ->name('register');
 
-    Route::post('register', [UserController::class, 'createUser'])
+    Route::post('register', [UserController::class, 'register'])
         ->name('register');
 
     Route::get('login', [UserController::class, 'getLoginPage'])
         ->name('login');
 
-    Route::post('login', [UserController::class, 'loginAttempt'])
+    Route::post('login', [UserController::class, 'login'])
         ->name('login');
 });
