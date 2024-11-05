@@ -13,7 +13,7 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    public function createUser($request) : bool
+    public function createUser(object $request) : bool
     {
         $data = [
             'name' => $request->name,
@@ -26,5 +26,12 @@ class UserService
         $success = $this->userRepository->create($data);
 
         return $success;
+    }
+
+    public function checkUserExists(string $email) : bool
+    {
+        $isExists = $this->userRepository->checkUserExists($email);
+
+        return $isExists;
     }
 }

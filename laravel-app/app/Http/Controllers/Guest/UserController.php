@@ -48,4 +48,34 @@ class UserController
             return redirect()->back()->with('error', 'Error!')->withInput();
         }
     }
+
+    public function getLoginPage(): View
+    {
+        return view('guest.login');
+    }
+
+    public function login(Request $request) : RedirectResponse
+    {
+        $request->validate([
+            'email' => 'required|string|email|lowercase|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        try {
+            $userExists = $this->userService->checkUserExists($request->email);
+
+            if (!$userExists) {
+                return redirect()->back()->with('error', 'This email is not registered!')->withInput();
+            }
+
+            if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+                return redirect()->route('dashboard')->with('status', 'Login successful!');
+            }
+            return redirect()->back()->with('error', 'Login failed!')->withInput();
+
+        } catch (Exception $e) {
+            Log::error('Login error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error!')->withInput();
+        }
+    }
 }
