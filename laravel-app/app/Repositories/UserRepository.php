@@ -28,15 +28,36 @@ class UserRepository
             $stmt->bindParam(':created_at', $data['created_at']);
             $stmt->bindParam(':updated_at', $data['updated_at']);
 
-            if ($stmt->execute()) {
-                return true;
-            } else {
-                return false;
-            }
+            if ($stmt->execute()) return true;
+
+            return false;
+
         } catch (PDOException $e) {
             Log::error('User creation failed: ' . $e->getMessage(), [
                 'exception' => $e,
                 'data' => $data
+            ]);
+            return false;
+        }
+    }
+
+    public function checkUserExists(string $email) : bool
+    {
+        try {
+            $query = "SELECT * FROM users WHERE email = :email";
+            $stmt = $this->pdo->prepare($query);
+
+            $stmt->bindParam(':email', $email);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() === 1) return true;
+
+            return false;
+        } catch (PDOException $e) {
+            Log::error('User existence check failed: ' . $e->getMessage(), [
+                'exception' => $e,
+                'email' => $email
             ]);
             return false;
         }
