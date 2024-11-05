@@ -12,19 +12,19 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-@if(session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
-
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
 <div class="flex-center position-ref full-height">
     @include('navbar')
+    @if(session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="content form-container">
         <div class="form-title">
             Registration

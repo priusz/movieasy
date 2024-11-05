@@ -69,7 +69,7 @@ class UserController
             }
 
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->route('dashboard')->with('status', 'Login successful!');
+                return redirect()->route('welcome')->with('status', 'Login successful!');
             }
             return redirect()->back()->with('error', 'Login failed!')->withInput();
 
