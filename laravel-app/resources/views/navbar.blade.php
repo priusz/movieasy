@@ -1,8 +1,22 @@
-<div class="top-right">
-    @if(auth()->check())
-        <a href="{{ route('logout') }}" class="button">Logout</a>
-    @else
-        <a href="{{ route('login') }}" class="button">Login</a>
-        <a href="{{ route('register') }}" class="button">Register</a>
-    @endif
-</div>
+<nav>
+    <ul>
+        @if(auth()->check())
+{{--            <li>--}}
+{{--                <a href="{{ route('welcome') }}">Home</a>--}}
+{{--            </li>--}}
+            <li>
+                <a href="{{ route('logout') }}" id="logout-button" data-url={{ route('logout') }}>Logout</a>
+            </li>
+        @else
+            <li>
+                <a href="{{ route('welcome') }}">Home</a>
+            </li>
+            <li>
+                <a href="{{ route('login') }}">Login</a>
+            </li>
+            <li>
+                <a href="{{ route('register') }}">Register</a>
+            </li>
+        @endif
+    </ul>
+</nav>
