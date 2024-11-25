@@ -3,78 +3,74 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register</title>
+    <meta name="author" content="Timea Boros">
+    <meta name="description" content="Registration page of my MoviEasy app">
+    <title>Registration</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+{{--    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">--}}
+{{--    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">--}}
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
+    @vite('resources/js/app.js')
 </head>
 <body>
-<div class="flex-center position-ref full-height">
-    @include('navbar')
-    @if(session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
+    <header>
+        @include('navbar')
+        @if(session('status'))
+            <dialog>{{ session('status') }}</dialog>
+        @endif
 
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-    <div class="content form-container">
-        <div class="form-title">
-            Registration
-        </div>
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="{{ old('name') }}" required>
-                @error('name')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required>
-                @error('email')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                @error('password')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="password_confirmation">Confirm Password:</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" required>
-                @error('password_confirmation')
-                <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-            <a href="{{ route('welcome') }}" class="button">Back</a>
-            <a href="#" class="button" id="register-button">Submit</a>
-        </form>
-    </div>
-</div>
-
-<script>
-    document.getElementById('register-button').addEventListener('click', function (event) {
-        event.preventDefault();
-        document.querySelector('form').submit();
-    });
-</script>
-
+        @if(session('error'))
+            <dialog>{{ session('error') }}</dialog>
+        @endif
+    </header>
+    <main>
+        <article>
+            <h1>Registration</h1>
+            <form action="{{ route('register') }}" method="post">
+                @csrf
+                <fieldset>
+                    <legend>Registration form</legend>
+                    <p>
+                        <label for="name">Name:</label>
+                        <input type="text" name="name" id="name" placeholder="Your name" value="{{ old('name') }}" required>
+                        @error('name')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </p>
+                    <p>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email" placeholder="Your email" value="{{ old('email') }}" required>
+                        @error('email')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </p>
+                    <p>
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password" placeholder="Your password" required>
+                        @error('password')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </p>
+                    <p>
+                        <label for="password_confirmation">Confirm password:</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" required>
+                        @error('password_confirmation')
+                        <span>{{ $message }}</span>
+                        @enderror
+                    </p>
+                </fieldset>
+                <a href="{{ route('welcome') }}">Back</a>
+                <a href="#" id="register-button">Submit</a>
+            </form>
+        </article>
+    </main>
+    <footer>
+        <p>
+            <span>Copyright &copy; <time id="year"></time></span>
+            <span>MoviEasy</span>
+        </p>
+    </footer>
 </body>
 </html>
