@@ -1,10 +1,58 @@
-@import 'pages/welcome.css';
-@import 'components/basic.css';
-@import 'components/body.css';
-@import 'components/button.css';
+/* COMPONENTS */
+@import 'components/reset.css';
+@import 'components/font.css';
+@import 'components/variable.css';
 @import 'components/navbar.css';
-@import 'components/form.css';
+@import 'components/main.css';
+@import 'components/footer.css';
 
-/*@tailwind base;*/
-/*@tailwind components;*/
-/*@tailwind utilities;*/
+/* PAGES */
+
+/* || UTILITY CLASSES */
+
+.offscreen {
+    position: absolute;
+    left: -10000px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+/* || GENERAL STYLES */
+
+html {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), var(--BGIMAGE);
+    background-size: cover;
+    scroll-behavior: smooth;
+    font-family: var(--FF), sans-serif;
+    font-size: var(--FS);
+}
+
+body {
+    height: 95vh;
+    max-width: 95vw;
+    margin: 20px auto;
+    color: var(--FONT-COLOR);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:any-link {
+    color: var(--LINK-COLOR);
+}
+
+a:hover,
+a:focus-visible {
+    color: var(--LINK-HOVER);
+    text-decoration: underline;
+}
+
+a:active {
+    color: var(--LINK-ACTIVE);
+}

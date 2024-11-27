@@ -5,29 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Timea Boros">
     <meta name="description" content="Welcome page of my MoviEasy app">
-    <title>MoviEasy</title>
+    <title> MoviEasy</title>
+    <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png" />
 
-    <!-- Fonts -->
-    {{--    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">--}}
-    {{--    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">--}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
-    @vite('resources/js/app.js')
 </head>
 <body>
-    <header>
+    <header class="header">
+        <div class="header__left">
+            <img class="header__img" src="{{ Vite::asset('resources/images/favicon.png') }}" alt="This is an image">
+            <p class="header__p nowrap">Welcome, Human! Please log in 😎</p>
+        </div>
         @include('navbar')
-        <dialog></dialog>
+        @if(session('status'))
+            <p id="status" class="header__p__status nowrap">{{ session('status') }}</p>
+        @endif
+
+        @if(session('error'))
+            <p id="error" class="header__p__error nowrap">{{ session('error') }}</p>
+        @endif
     </header>
-    <main>
-        <h1>MoviEasy</h1>
-        <p>... for movie and series lovers</p>
+    <main class="welcome">
+        <h1 class="welcome__h1">MoviEasy</h1>
+        <p class="welcome__p nowrap">... for movie and series l❤vers</p>
     </main>
     <footer>
-        <p>
-            <span>Copyright &copy; <time id="year"></time></span>
-            <span>MoviEasy</span>
-        </p>
+        @include('footer')
     </footer>
 </body>
 </html>
