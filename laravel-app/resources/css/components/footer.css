@@ -1,0 +1,13 @@
+footer {
+    background-image: var(--BODY-BGIMAGE);
+    position: sticky;
+    bottom: 0;
+    font-weight: bold;
+    padding: var(--PADDING);
+    text-align: center;
+    border-left: var(--BORDERS);
+    border-right: var(--BORDERS);
+    box-shadow: 0 0 10px var(--BORDER-COLOR);
+    border-radius: var(--BORDER-RADIUS);
+    height: 50px;
+}

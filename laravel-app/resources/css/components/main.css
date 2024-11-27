@@ -1,0 +1,95 @@
+/* MAIN */
+
+main {
+    background-image: var(--BODY-BGIMAGE);
+    height: 100%;
+    border-radius: var(--BORDER-RADIUS);
+    border-left: var(--BORDERS);
+    border-right: var(--BORDERS);
+    box-shadow: 0 0 10px var(--BORDER-COLOR);
+    display: flex;
+}
+
+/* WELCOME PAGE */
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome__h1 {
+    font-size: clamp(3rem, 13vw, 12rem);
+    overflow: hidden;
+    font-weight: 900;
+    background-image: var(--BGIMAGE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(80, 80, 80, 0.3);
+    text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.5);
+    animation: grow ease 4s;
+    animation-iteration-count: 1;
+}
+
+@keyframes grow {
+    0% {
+        transform: scale(0.6);
+    }
+    50% {
+        transform: scale(1.3) rotate(-3deg);
+    }
+}
+
+.welcome__p {
+    font-size: clamp(1rem, 3vw, 4rem);
+    padding-top: 2rem;
+    padding-left: 5rem;
+    font-weight: bolder;
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* REGISTRATION PAGE */
+
+.main__article {
+    border: var(--BORDERS);
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 3rem;
+    margin: 0 20%;
+    box-shadow: 0 0 10px var(--BORDER-COLOR);
+    border-radius: var(--BORDER-RADIUS);
+}
+
+.article__h2 {
+    font-size: clamp(2rem, 3vw, 4rem);
+    padding-bottom: 2rem;
+    text-align: center;
+}
+
+.form__fieldset {
+    border: none;
+    padding-bottom: 2rem;
+}
+
+.form__p {
+    padding-bottom: var(--PADDING);
+}
+
+.form__label {
+    display: block;
+    font-weight: bolder;
+}
+
+.form__input {
+    padding: 0.4rem;
+    border-radius: var(--BORDER-RADIUS);
+    border-width: 1px;
+    width: 100%;
+}
+
+.form__button {
+    border: var(--BORDERS);
+    border-radius: var(--BORDER-RADIUS);
+    padding: 0.4rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    font-weight: bolder;
+}

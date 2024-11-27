@@ -1,7 +1,66 @@
-.top-right {
-    position: absolute;
-    right: 10px;
-    top: 18px;
+.header {
+    background-image: var(--BODY-BGIMAGE);
+    width: 100%;
+    position: sticky;
+    top: 0;
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--PADDING);
+    border-left: var(--BORDERS);
+    border-right: var(--BORDERS);
+    box-shadow: 0 0 10px var(--BORDER-COLOR);
+    border-radius: var(--BORDER-RADIUS);
+    height: 50px;
+}
+
+.header__left {
+    display: flex;
+    align-items: center;
+    gap: var(--GAP);
+}
+
+.header__img {
+    display: inline-block;
+    max-height: 32px;
+    width: auto;
+}
+
+.header__p {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.header__p__status,
+.header__p__error {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--PADDING);
+    font-size: 1rem;
+    border-radius: var(--BORDER-RADIUS);
+    color: var(--FF);
+}
+
+.header__p__status {
+    background-color: rgba(0, 255, 0, 0.2);
+}
+
+.header__p__error {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.header__nav {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.header__ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-evenly;
+    gap: var(--GAP);
 }

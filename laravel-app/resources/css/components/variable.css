@@ -1,0 +1,33 @@
+:root {
+    /* FONTS */
+    --FF: "Orbitron";
+    --FS: clamp(1rem, 2.2vh, 1.5rem);
+
+    /* COLORS */
+    --BGCOLOR: black;
+    --BGIMAGE: url("@/images/welcome-background.jpg");
+    --BODY-BGCOLOR-FADE: rgba(255, 255, 240, 0.5);
+    --BODY-BGCOLOR: rgba(255, 255, 240, 0.95);
+    --BODY-BGIMAGE: linear-gradient(to bottom, var(--BODY-BGCOLOR), var(--BODY-BGCOLOR-FADE));
+    --BUTTON-COLOR: white;
+    --FONT-COLOR: rgba(0, 0, 0, 0.7);
+    --HEADER-BGCOLOR: black;
+    --HEADER-COLOR: white;
+    --BORDER-COLOR: black;
+    --LINK-ACTIVE: black;
+    --LINK-COLOR: rgba(0, 0, 0, 0.7);
+    --LINK-HOVER: hsla(0, 0%, 0%, 0.5);
+
+    /* BORDERS */
+    --BORDERS:1px solid var(--BORDER-COLOR);
+    --BORDER-RADIUS: 10px;
+
+    /* STANDARD PADDING */
+    --PADDING: 0.5rem;
+
+    /* STANDARD MARGIN */
+    --MARGIN: 1rem;
+
+    /* STANDARD GAP */
+    --GAP: 1rem;
+}

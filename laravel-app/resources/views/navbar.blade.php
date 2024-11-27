@@ -1,5 +1,5 @@
-<nav>
-    <ul>
+<nav class="header__nav">
+    <ul class="header__ul">
         @if(auth()->check())
 {{--            <li>--}}
 {{--                <a href="{{ route('welcome') }}">Home</a>--}}

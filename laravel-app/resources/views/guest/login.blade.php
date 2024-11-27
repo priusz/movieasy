@@ -6,57 +6,54 @@
     <meta name="author" content="Timea Boros">
     <meta name="description" content="Welcome page of my MoviEasy app">
     <title>Login</title>
+    <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png" />
 
-    <!-- Fonts -->
-{{--    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">--}}
-{{--    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">--}}
-
-{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
-    @vite('resources/js/app.js')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <header>
+    <header class="header">
+        <div class="header__left">
+            <img class="header__img" src="{{ Vite::asset('resources/images/favicon.png') }}" alt="This is an image">
+            <p class="header__p nowrap">Welcome, Human! Please log in 😎</p>
+        </div>
         @include('navbar')
         @if(session('status'))
-            <dialog>{{ session('status') }}</dialog>
+            <p id="status" class="header__p__status nowrap">{{ session('status') }}</p>
         @endif
 
         @if(session('error'))
-            <dialog>{{ session('error') }}</dialog>
+            <p id="error" class="header__p__error nowrap">{{ session('error') }}</p>
         @endif
     </header>
-    <main>
-        <article>
-            <h1>Login</h1>
-            <form action="{{ route('login') }}" method="post">
+    <main class="welcome">
+        <article class="main__article article">
+            <h2 class="article__h2">Login</h2>
+            <form class="article__form form" action="{{ route('login') }}" method="post">
                 @csrf
-                <fieldset>
-                    <legend>Login form</legend>
-                    <p>
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" placeholder="Your name" value="{{ old('name') }}" required>
+                <fieldset class="form__fieldset">
+                    <legend class="offscreen">Login form</legend>
+                    <p class="form__p">
+                        <label class="form__label" for="email">Email:</label>
+                        <input class="form__input" type="email" name="email" id="email" placeholder="Your email" value="{{ old('email') }}" required>
                         @error('email')
                         <span>{{ $message }}</span>
                         @enderror
                     </p>
-                    <p>
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" placeholder="Your password" required>
+                    <p class="form__p">
+                        <label class="form__label" for="password">Password:</label>
+                        <input class="form__input" type="password" name="password" id="password" placeholder="Your password" required>
                         @error('password')
                         <span>{{ $message }}</span>
                         @enderror
                     </p>
                 </fieldset>
-                <a href="{{ route('welcome') }}">Back</a>
-                <a href="#" id="login-button">Login</a>
+                <a class="form__button" href="{{ route('welcome') }}">Back</a>
+                <a class="form__button" href="#" id="login-button">Login</a>
             </form>
         </article>
     </main>
     <footer>
-        <p>
-            <span>Copyright &copy; <time id="year"></time></span>
-            <span>MoviEasy</span>
-        </p>
+        @include('footer')
     </footer>
 </body>
 </html>
