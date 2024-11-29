@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Timea Boros">
-    <meta name="description" content="Welcome page of my MoviEasy app">
+    <meta name="description" content="Login page of my MoviEasy app">
     <title>Login</title>
     <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png" />
 
@@ -26,7 +26,7 @@
         @endif
     </header>
     <main class="welcome">
-        <article class="main__article article">
+        <article class="welcome__article article">
             <h2 class="article__h2">Login</h2>
             <form class="article__form form" action="{{ route('login') }}" method="post">
                 @csrf

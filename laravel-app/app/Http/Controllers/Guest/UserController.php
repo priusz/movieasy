@@ -36,16 +36,16 @@ class UserController
 
             if ($success) {
                 if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-                    return redirect()->route('dashboard')->with('status', 'Registration successful!');
+                    return redirect()->route('welcome')->with('status', 'Registration successful! You are now logged in. 😊');
                 }
-                return redirect()->back()->with('error', 'Login failed!')->withInput();
+                return redirect()->back()->with('error', 'Login failed! 😕')->withInput();
             } else {
-                return redirect()->back()->with('error', 'Registration failed!')->withInput();
+                return redirect()->back()->with('error', 'Registration failed! 😕')->withInput();
             }
 
         } catch (Exception $e) {
             Log::error('Registration error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Error!')->withInput();
+            return redirect()->back()->with('error', 'Error! 😕')->withInput();
         }
     }
 
@@ -65,17 +65,17 @@ class UserController
             $userExists = $this->userService->checkUserExists($request->email);
 
             if (!$userExists) {
-                return redirect()->back()->with('error', 'This email is not registered!')->withInput();
+                return redirect()->back()->with('error', 'This email is not registered! 😕')->withInput();
             }
 
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->route('welcome')->with('status', 'Login successful!');
+                return redirect()->route('welcome')->with('status', 'Login successful! 😊');
             }
-            return redirect()->back()->with('error', 'Login failed!')->withInput();
+            return redirect()->back()->with('error', 'Login failed! 😕')->withInput();
 
         } catch (Exception $e) {
             Log::error('Login error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Error!')->withInput();
+            return redirect()->back()->with('error', 'Error! 😕')->withInput();
         }
     }
 }

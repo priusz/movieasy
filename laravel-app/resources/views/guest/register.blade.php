@@ -26,7 +26,7 @@
         @endif
     </header>
     <main class="welcome">
-        <article class="main__article article">
+        <article class="welcome__article article">
             <h2 class="article__h2">Registration</h2>
             <form class="article__form form" action="{{ route('register') }}" method="post">
                 @csrf

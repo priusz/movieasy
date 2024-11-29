@@ -22,6 +22,7 @@
 /* || GENERAL STYLES */
 
 html {
+    background-color: black;
     background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), var(--BGIMAGE);
     background-size: cover;
     scroll-behavior: smooth;
@@ -37,6 +38,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow: hidden;
 }
 
 a {
