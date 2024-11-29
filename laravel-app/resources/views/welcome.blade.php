@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Timea Boros">
     <meta name="description" content="Welcome page of my MoviEasy app">
-    <title> MoviEasy</title>
+    <title>MoviEasy</title>
     <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -28,7 +28,7 @@
     </header>
     <main class="welcome">
         <h1 class="welcome__h1">MoviEasy</h1>
-        <p class="welcome__p nowrap">... for movie and series l❤vers</p>
+        <p class="welcome__p nowrap">... for movie and series l<span class="heart">❤</span>vers</p>
     </main>
     <footer>
         @include('footer')

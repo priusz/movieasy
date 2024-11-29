@@ -2,21 +2,30 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Services\QuoteService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class AuthUserController
 {
     protected UserService $userService;
+    protected QuoteService $quoteService;
 
-    public function __construct(UserService $userService)
+    public function __construct(QuoteService $quoteService)
     {
-        $this->userService = $userService;
+        $this->quoteService = $quoteService;
+    }
+
+    public function getHomePage(): View
+    {
+        $quote = $this->quoteService->getRandomQuote();
+        return view('auth.home', ['quote' => $quote]);
     }
 
     public function logout(): RedirectResponse
     {
         auth()->logout();
-        return redirect()->route('welcome')->with('status', 'You have been logged out!');
+        return redirect()->route('welcome')->with('status', 'You have been logged out! 😊');
     }
 }

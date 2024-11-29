@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\DBConnection\Connection;
+use App\Repositories\QuoteRepository;
 use App\Repositories\UserRepository;
+use App\Services\QuoteService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +27,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserService::class, function ($app) {
             $userRepository = $app->make(UserRepository::class);
             return new UserService($userRepository);
+        });
+
+        $this->app->singleton(QuoteService::class, function ($app) {
+            $quoteRepository = $app->make(QuoteRepository::class);
+            return new QuoteService($quoteRepository);
         });
     }
 

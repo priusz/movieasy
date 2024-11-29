@@ -5,6 +5,7 @@ footer {
     font-weight: bold;
     padding: var(--PADDING);
     text-align: center;
+    align-content: center;
     border-left: var(--BORDERS);
     border-right: var(--BORDERS);
     box-shadow: 0 0 10px var(--BORDER-COLOR);
