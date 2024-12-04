@@ -5,7 +5,7 @@
                 <a href="{{ route('home') }}">Home</a>
             </li>
             <li>
-                <a href="{{ route('home') }}">Database</a>
+                <a href="{{ route('database') }}">Database</a>
             </li>
             <li>
                 <a href="{{ route('home') }}">Collection</a>

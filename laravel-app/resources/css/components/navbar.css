@@ -44,11 +44,11 @@
 }
 
 .header__p__status {
-    background-color: rgba(0, 255, 0, 0.2);
+    background-color: rgba(100, 255, 100);
 }
 
 .header__p__error {
-    background-color: rgba(255, 0, 0, 0.2);
+    background-color: rgb(255, 100, 100);
 }
 
 .header__nav {

@@ -32,10 +32,10 @@
             <p id="quote-saidBy" class="quote__p nowrap">{{ $quote->said_by }}</p>
         </article>
         <article class="home__article recommend">
-            <h1 class="recommend__h1 nowrap">What are you in the mood for today?</h1>
+            <h1 class="recommend__h1 nowrap">What do you want to do?</h1>
             <section class="recommend__section">
                 <h2 class="recommend__h2">Let's browse through the
-                    <a class="recommend__a" href={{ route('home') }}>Database</a>
+                    <a class="recommend__a" href={{ route('database') }}>Database</a>
                 </h2>
             </section>
             <section class="recommend__section">
