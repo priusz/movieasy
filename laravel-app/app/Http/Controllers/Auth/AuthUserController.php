@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Services\QuoteService;
-use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AuthUserController
 {
-    protected UserService $userService;
     protected QuoteService $quoteService;
 
     public function __construct(QuoteService $quoteService)

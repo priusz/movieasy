@@ -7,6 +7,7 @@ main {
     border-left: var(--BORDERS);
     border-right: var(--BORDERS);
     box-shadow: 0 0 10px var(--BORDER-COLOR);
+    overflow-y: auto;
 }
 
 /* WELCOME PAGE */
@@ -49,7 +50,7 @@ main {
 
 .heart {
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 0.8em;
     animation: pulse 1.2s infinite ease-in-out;
 }
 
