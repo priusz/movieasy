@@ -13,15 +13,35 @@ class DatabaseService
         $this->databaseRepository = $databaseRepository;
     }
 
-    public function getFilteredData(array $filters) : array
+    public function getFetchResult(array $filters) : array
     {
-        $result = $this->databaseRepository->getFilteredData($filters);
+        $result = $this->databaseRepository->getFetchResult($filters);
 
         return $result;
     }
 
-    public function getSortedData(string $value, array $array) : array
+    public function fetchAll(array $filters, array $fetchResult) : array
     {
-        return [];
+        $result = $this->databaseRepository->fetchAll($filters, $fetchResult);
+
+        return $result;
     }
+
+    public function getDataWithPoster() : void
+    {
+        $this->databaseRepository->getDataWithPoster();
+    }
+
+    public function getSortedData(string $value) : void
+    {
+        $this->databaseRepository->getSortedData($value);
+    }
+
+//    public function getDataByPage(int $pageNumber, array $array) : array
+//    {
+//        $result = $this->databaseRepository->getDataByPage($pageNumber, $array);
+//
+//        return $result;
+//    }
+
 }

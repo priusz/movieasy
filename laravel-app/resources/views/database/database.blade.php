@@ -82,11 +82,6 @@
                         {{ old('type', $filters['type'] ?? '') == 'episode' ? 'checked' : '' }} />
                     <label for="episode">Episode</label>
                 </p>
-                <p>
-                    <input type="checkbox" name="poster" id="poster" value="poster"
-                        {{ old('poster', $filters['poster'] ?? '') == 'poster' ? 'checked' : '' }} />
-                    <label for="poster">Results with poster</label>
-                </p>
             </fieldset>
             <a href="{{ route('home') }}">Back</a>
             <a href="{{ route('database') }}">Clear</a>
@@ -102,27 +97,42 @@
                 <p>{{ $error }}</p>
             @else
                 @if($total > 1)
-                <fieldset>
-                    <legend>Sorting field:</legend>
-                    <p>
-                        <label for="sort">Sort by:</label>
-                        <select name="sort" id="sort">
-                            <option value="" selected>Choose one</option>
-                            <option value="by-az">Title A-Z</option>
-                            <option value="by-za">Title Z-A</option>
-                            <option value="by-release">Year <</option>
-                            <option value="by-release">Year ></option>
-                            <option value="by-rating">IMDB rating <</option>
-                            <option value="by-rating">IMDB rating ></option>
-                            <option value="by-runtime">Runtime <</option>
-                            <option value="by-runtime">Runtime ></option>
-                        </select>
-                    </p>
-                </fieldset>
+                    <form id="filterForm" action="{{ route('database-filter') }}" method="post">
+                        @csrf
+                        <fieldset>
+                            <legend>Sorting field:</legend>
+                            <p>
+                                <input type="hidden" name="title" value="{{ old('title', $filters['title'] ?? '') }}">
+                                <input type="hidden" name="id" value="{{ old('id', $filters['id'] ?? '') }}">
+                                <input type="hidden" name="release" value="{{ old('release', $filters['release'] ?? '') }}">
+                                <input type="hidden" name="type" value="{{ old('type', $filters['type'] ?? '') }}">
+                            </p>
+                            <p>
+                                <label for="sort">Sort by:</label>
+                                <select name="sort" id="sort" onchange="document.getElementById('filterForm').submit();">
+                                    <option value="">Choose...</option>
+                                    <option value="asc-title" {{ request('sort') == 'asc-title' ? 'selected' : '' }}>Title A-Z</option>
+                                    <option value="desc-title" {{ request('sort') == 'desc-title' ? 'selected' : '' }}>Title Z-A</option>
+                                    <option value="asc-release" {{ request('sort') == 'asc-release' ? 'selected' : '' }}>Year <</option>
+                                    <option value="desc-release" {{ request('sort') == 'desc-release' ? 'selected' : '' }}>Year ></option>
+                                    <option value="asc-rating" {{ request('sort') == 'asc-rating' ? 'selected' : '' }}>IMDB rating <</option>
+                                    <option value="desc-rating" {{ request('sort') == 'desc-rating' ? 'selected' : '' }}>IMDB rating ></option>
+                                    <option value="asc-runtime" {{ request('sort') == 'asc-runtime' ? 'selected' : '' }}>Runtime <</option>
+                                    <option value="desc-runtime" {{ request('sort') == 'desc-runtime' ? 'selected' : '' }}>Runtime ></option>
+                                </select>
+                            </p>
+                            <p>
+                                <input type="checkbox" name="poster" id="poster" value="poster"
+                                    {{ request('poster') == 'poster' ? 'checked' : '' }}
+                                    onchange="document.getElementById('filterForm').submit();"/>
+                                <label for="poster">Results with poster</label>
+                            </p>
+                        </fieldset>
+                    </form>
                 @endif
 
                 @foreach($results as $result)
-                    <section id="{{ $result['Title'] }}">
+                    <section id="{{ $result['imdbID'] }}">
                         <figure>
                             <img
                                 src="{{ $result['Poster'] !== 'N/A' ? $result['Poster'] : Vite::asset('resources/images/no-poster.png') }}"
