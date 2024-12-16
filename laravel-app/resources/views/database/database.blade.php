@@ -82,6 +82,11 @@
                         {{ old('type', $filters['type'] ?? '') == 'episode' ? 'checked' : '' }} />
                     <label for="episode">Episode</label>
                 </p>
+                <p>
+                    <input type="radio" name="type" id="all" value="all"
+                        {{ old('type', $filters['type'] ?? '') == 'all' ? 'checked' : '' }} />
+                    <label for="all">All</label>
+                </p>
             </fieldset>
             <a href="{{ route('home') }}">Back</a>
             <a href="{{ route('database') }}">Clear</a>
@@ -115,10 +120,10 @@
                                     <option value="desc-title" {{ request('sort') == 'desc-title' ? 'selected' : '' }}>Title Z-A</option>
                                     <option value="asc-release" {{ request('sort') == 'asc-release' ? 'selected' : '' }}>Year <</option>
                                     <option value="desc-release" {{ request('sort') == 'desc-release' ? 'selected' : '' }}>Year ></option>
-                                    <option value="asc-rating" {{ request('sort') == 'asc-rating' ? 'selected' : '' }}>IMDB rating <</option>
-                                    <option value="desc-rating" {{ request('sort') == 'desc-rating' ? 'selected' : '' }}>IMDB rating ></option>
-                                    <option value="asc-runtime" {{ request('sort') == 'asc-runtime' ? 'selected' : '' }}>Runtime <</option>
-                                    <option value="desc-runtime" {{ request('sort') == 'desc-runtime' ? 'selected' : '' }}>Runtime ></option>
+{{--                                    <option value="asc-rating" {{ request('sort') == 'asc-rating' ? 'selected' : '' }}>IMDB rating <</option>--}}
+{{--                                    <option value="desc-rating" {{ request('sort') == 'desc-rating' ? 'selected' : '' }}>IMDB rating ></option>--}}
+{{--                                    <option value="asc-runtime" {{ request('sort') == 'asc-runtime' ? 'selected' : '' }}>Runtime <</option>--}}
+{{--                                    <option value="desc-runtime" {{ request('sort') == 'desc-runtime' ? 'selected' : '' }}>Runtime ></option>--}}
                                 </select>
                             </p>
                             <p>
@@ -142,10 +147,10 @@
                             />
                             <figcaption>{{ $result['Title'] ?? 'Unknown title' }}</figcaption>
                         </figure>
-                        <details>
-                            <summary>Plot:</summary>
-                            <p>Plot: {{ $result['Plot'] ?? 'Unknown plot' }}</p>
-                        </details>
+{{--                        <details>--}}
+{{--                            <summary>Plot:</summary>--}}
+{{--                            <p>Plot: {{ $result['Plot'] ?? 'Unknown plot' }}</p>--}}
+{{--                        </details>--}}
                         <p>Year: {{ $result['Year'] ?? 'Unknown year' }}</p>
                         <p>Id: {{ $result['imdbID'] ?? 'Unknown ID' }}</p>
                     </section>

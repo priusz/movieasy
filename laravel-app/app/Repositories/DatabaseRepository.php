@@ -25,7 +25,7 @@ class DatabaseRepository
             $queryParams = [
                 's' => '*' . $filters['title'] . '*',
                 'y' => $filters['release'],
-                'type' => $filters['type'],
+                'type' => $filters['type'] != 'all' ? $filters['type'] : '',
                 'r' => 'json',
                 'page' => $filters['page'] ?? 1,
                 'apikey' => env('OMDB_API_KEY')
