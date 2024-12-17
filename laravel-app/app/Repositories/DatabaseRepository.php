@@ -132,12 +132,12 @@ class DatabaseRepository
         $fields = [
             'asc-title' => 'Title',
             'desc-title' => 'Title',
-            'asc-release' => 'Release',
-            'desc-release' => 'Release',
-            'asc-rating' => 'imdbRating',
-            'desc-rating' => 'imdbRating',
-            'asc-runtime' => 'Runtime',
-            'desc-runtime' => 'Runtime',
+            'asc-release' => 'Year',
+            'desc-release' => 'Year',
+//            'asc-rating' => 'imdbRating',
+//            'desc-rating' => 'imdbRating',
+//            'asc-runtime' => 'Runtime',
+//            'desc-runtime' => 'Runtime',
         ];
 
         return $fields[$value];

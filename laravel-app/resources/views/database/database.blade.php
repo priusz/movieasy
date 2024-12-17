@@ -32,7 +32,7 @@
         <h1>Search and filter:</h1>
         <p>NOTE 1: The title or the exact id number is required, but not both of them!</p>
         <p>NOTE 2: If you search by id, all other search parameters will be ignored!</p>
-        <form action="{{ route('database-search') }}" method="post">
+        <form id="search-form" action="{{ route('database-search') }}" method="post">
             @csrf
             <fieldset>
                 <legend>Search field</legend>
@@ -102,7 +102,7 @@
                 <p>{{ $error }}</p>
             @else
                 @if($total > 1)
-                    <form id="filterForm" action="{{ route('database-filter') }}" method="post">
+                    <form id="sort-form" action="{{ route('database-sort') }}" method="post">
                         @csrf
                         <fieldset>
                             <legend>Sorting field:</legend>
@@ -114,7 +114,7 @@
                             </p>
                             <p>
                                 <label for="sort">Sort by:</label>
-                                <select name="sort" id="sort" onchange="document.getElementById('filterForm').submit();">
+                                <select name="sort" id="sort-button">
                                     <option value="">Choose...</option>
                                     <option value="asc-title" {{ request('sort') == 'asc-title' ? 'selected' : '' }}>Title A-Z</option>
                                     <option value="desc-title" {{ request('sort') == 'desc-title' ? 'selected' : '' }}>Title Z-A</option>
@@ -127,9 +127,8 @@
                                 </select>
                             </p>
                             <p>
-                                <input type="checkbox" name="poster" id="poster" value="poster"
-                                    {{ request('poster') == 'poster' ? 'checked' : '' }}
-                                    onchange="document.getElementById('filterForm').submit();"/>
+                                <input type="checkbox" name="poster" id="poster-button" value="poster"
+                                    {{ request('poster') == 'poster' ? 'checked' : '' }}/>
                                 <label for="poster">Results with poster</label>
                             </p>
                         </fieldset>
@@ -152,13 +151,18 @@
 {{--                            <p>Plot: {{ $result['Plot'] ?? 'Unknown plot' }}</p>--}}
 {{--                        </details>--}}
                         <p>Year: {{ $result['Year'] ?? 'Unknown year' }}</p>
-                        <p>Id: {{ $result['imdbID'] ?? 'Unknown ID' }}</p>
                     </section>
+                        <a href="#">💕</a>
+                        <a href="#">✅</a>
+{{--                        <a href="#">👍</a>--}}
+{{--                        <a href="#">👎</a>--}}
+                        <a href="#">Show details</a>
                 @endforeach
             @endif
         @else
             <p>Please provide correct search criterion(s)!</p>
         @endif
+
     </article>
 </main>
 <footer>
