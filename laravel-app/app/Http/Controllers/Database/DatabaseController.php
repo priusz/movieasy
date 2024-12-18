@@ -18,6 +18,9 @@ class DatabaseController
 
     public function getDatabasePage() : View
     {
+        session::forget('allResults');
+        session::forget('actualResults');
+        session::put('currentPage', 1);
         return view('database.database');
     }
 
@@ -38,20 +41,9 @@ class DatabaseController
             return redirect()->back()->with('error', 'Both title and id cannot be provided at the same time! 😕')->withInput();
         }
 
-        $title = $request->input('title') ? $request->input('title') : "";
-        $id = $request->input('id') ? $request->input('id') : "";
-        $release = $request->input('release') ? $request->input('release') : "";
-        $type = $request->input('type') ? $request->input('type') : "";
-
-        $filters = [
-            'title' => $title,
-            'id' => $id,
-            'release' => $release,
-            'type' => $type
-        ];
+        $filters = $this->setFilters($request);
 
         $fetchResult = $this->databaseService->getFetchResult($filters);
-
 
         if ($fetchResult['Response'] == 'False') {
 
@@ -68,6 +60,7 @@ class DatabaseController
                 'total' => 1,
                 'results' => [$fetchResult],
                 'filters' => $filters,
+                'currentPage' => session('currentPage'),
             ]);
         }
 
@@ -78,6 +71,7 @@ class DatabaseController
                 'total' => $fetchResult['totalResults'],
                 'results' => $fetchResult['Search'],
                 'filters' => $filters,
+                'currentPage' => session('currentPage'),
             ]);
         }
 
@@ -87,28 +81,20 @@ class DatabaseController
 
         session(['allResults' => $allResult,
             'actualResults' => $allResult,
-            'actualPage' => 1]);
+            'maxPage' => ceil($allResult['totalResults'] / 10) ]);
 
         return view('database.database')->with([
             'total' => $allResult['totalResults'],
-            'results' => $allResult['Search'][0],
-            'filters' => $filters
+            'results' => $allResult['Search'][session::get('currentPage') - 1],
+            'filters' => $filters,
+            'currentPage' => session('currentPage'),
+            'maxPage' => session('maxPage'),
         ]);
     }
 
     public function getDatabasePageWithSortedData(Request $request)
     {
-        $title = $request->input('title', '');
-        $id = $request->input('id', '');
-        $release = $request->input('release', '');
-        $type = $request->input('type', '');
-
-        $filters = [
-            'title' => $title,
-            'id' => $id,
-            'release' => $release,
-            'type' => $type
-        ];
+        $filters = $this->setFilters($request);
 
         $sort = $request->input('sort');
         $poster = $request->has('poster');
@@ -135,12 +121,30 @@ class DatabaseController
 
         return view('database.database')->with([
             'total' => session::get('actualResults')['totalResults'],
-            'results' => session::get('actualResults')['Search'][0],
+            'results' => session::get('actualResults')['Search'][session::get('currentPage') - 1],
             'filters' => $filters,
+            'currentPage' => session('currentPage'),
         ]);
 
 //        dd(session::get('allResults'));
 
+    }
+
+    private function setFilters(Request $request) : array
+    {
+        $title = $request->input('title', '');
+        $id = $request->input('id', '');
+        $release = $request->input('release', '');
+        $type = $request->input('type', '');
+
+        $filters = [
+            'title' => $title,
+            'id' => $id,
+            'release' => $release,
+            'type' => $type
+        ];
+
+        return $filters;
     }
 
 }

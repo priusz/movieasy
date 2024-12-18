@@ -151,18 +151,57 @@
 {{--                            <p>Plot: {{ $result['Plot'] ?? 'Unknown plot' }}</p>--}}
 {{--                        </details>--}}
                         <p>Year: {{ $result['Year'] ?? 'Unknown year' }}</p>
+                        <p>
+                            <a href="#">💕</a>
+                            <a href="#">✅</a>
+                            {{--                        <a href="#">👍</a>--}}
+                            {{--                        <a href="#">👎</a>--}}
+                            <a href="#">Show details</a>
+                        </p>
                     </section>
-                        <a href="#">💕</a>
-                        <a href="#">✅</a>
-{{--                        <a href="#">👍</a>--}}
-{{--                        <a href="#">👎</a>--}}
-                        <a href="#">Show details</a>
                 @endforeach
+                <section>
+                    <h1>Page navigation</h1>
+                    <nav>
+                        <ul>
+                            <li>
+                                @if ($currentPage == 1)
+                                    <span>⏪</span>
+                                @else
+                                    <a href="?page=1">⏪</a>
+                                @endif
+                            </li>
+                            <li>
+                                @if ($currentPage == 1)
+                                    <span>◀️</span>
+                                @else
+                                    <a href="?page={{ $currentPage - 1 }}">◀️</a>
+                                @endif
+                            </li>
+                            <li>
+                                {{ $currentPage }}
+                            </li>
+                            <li>
+                                @if ($currentPage == $maxPage)
+                                    <span>▶️</span>
+                                @else
+                                    <a href="?page={{ $currentPage + 1 }}">▶️</a>
+                                @endif
+                            </li>
+                            <li>
+                                @if ($currentPage == $maxPage)
+                                    <span>⏩</span>
+                                @else
+                                    <a href="?page={{ $maxPage }}">⏩</a>
+                                @endif
+                            </li>
+                        </ul>
+                    </nav>
+                </section>
             @endif
         @else
             <p>Please provide correct search criterion(s)!</p>
         @endif
-
     </article>
 </main>
 <footer>
