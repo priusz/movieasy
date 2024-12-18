@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Timea Boros">
     <meta name="description" content="Home page of my MoviEasy app">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Home</title>
-    <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png" />
+    <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png"/>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -38,7 +39,8 @@
                 <legend>Search field</legend>
                 <p>
                     <label for="title">Title:</label>
-                    <input type="text" name="title" id="title" value="{{ old('title', $filters['title'] ?? '') }}" pattern="[A-Za-z0-9]{3,}" autofocus>
+                    <input type="text" name="title" id="title" value="{{ old('title', $filters['title'] ?? '') }}"
+                           pattern="[A-Za-z0-9]{3,}" autofocus>
                     <span>(Minimum 3 character)</span>
                     @error('title')
                     <span>{{ $message }}</span>
@@ -59,9 +61,12 @@
                 <p>
                     <label for="release">Year:</label>
                     <select name="release" id="release">
-                        <option value="" {{ old('release', $filters['release'] ?? '') === '' ? 'selected' : '' }}>Choose a year</option>
+                        <option value="" {{ old('release', $filters['release'] ?? '') === '' ? 'selected' : '' }}>Choose
+                            a year
+                        </option>
                         @for ($release = 2024; $release >= 1894; $release--)
-                            <option value="{{ $release }}" {{ (string) old('release', $filters['release'] ?? '') === (string) $release ? 'selected' : '' }}>
+                            <option
+                                value="{{ $release }}" {{ (string) old('release', $filters['release'] ?? '') === (string) $release ? 'selected' : '' }}>
                                 {{ $release }}
                             </option>
                         @endfor
@@ -96,7 +101,6 @@
     <article>
         <h1>Result: {{ isset($results) ? '( ' . $total . ' item(s) )' : ' ' }}</h1>
         @if(isset($results))
-
             @if($total < 1)
                 <p>No result!</p>
                 <p>{{ $error }}</p>
@@ -109,21 +113,28 @@
                             <p>
                                 <input type="hidden" name="title" value="{{ old('title', $filters['title'] ?? '') }}">
                                 <input type="hidden" name="id" value="{{ old('id', $filters['id'] ?? '') }}">
-                                <input type="hidden" name="release" value="{{ old('release', $filters['release'] ?? '') }}">
+                                <input type="hidden" name="release"
+                                       value="{{ old('release', $filters['release'] ?? '') }}">
                                 <input type="hidden" name="type" value="{{ old('type', $filters['type'] ?? '') }}">
                             </p>
                             <p>
                                 <label for="sort">Sort by:</label>
                                 <select name="sort" id="sort-button">
                                     <option value="">Choose...</option>
-                                    <option value="asc-title" {{ request('sort') == 'asc-title' ? 'selected' : '' }}>Title A-Z</option>
-                                    <option value="desc-title" {{ request('sort') == 'desc-title' ? 'selected' : '' }}>Title Z-A</option>
-                                    <option value="asc-release" {{ request('sort') == 'asc-release' ? 'selected' : '' }}>Year <</option>
-                                    <option value="desc-release" {{ request('sort') == 'desc-release' ? 'selected' : '' }}>Year ></option>
-{{--                                    <option value="asc-rating" {{ request('sort') == 'asc-rating' ? 'selected' : '' }}>IMDB rating <</option>--}}
-{{--                                    <option value="desc-rating" {{ request('sort') == 'desc-rating' ? 'selected' : '' }}>IMDB rating ></option>--}}
-{{--                                    <option value="asc-runtime" {{ request('sort') == 'asc-runtime' ? 'selected' : '' }}>Runtime <</option>--}}
-{{--                                    <option value="desc-runtime" {{ request('sort') == 'desc-runtime' ? 'selected' : '' }}>Runtime ></option>--}}
+                                    <option value="asc-title" {{ request('sort') == 'asc-title' ? 'selected' : '' }}>
+                                        Title A-Z
+                                    </option>
+                                    <option value="desc-title" {{ request('sort') == 'desc-title' ? 'selected' : '' }}>
+                                        Title Z-A
+                                    </option>
+                                    <option
+                                        value="asc-release" {{ request('sort') == 'asc-release' ? 'selected' : '' }}>
+                                        Year <
+                                    </option>
+                                    <option
+                                        value="desc-release" {{ request('sort') == 'desc-release' ? 'selected' : '' }}>
+                                        Year >
+                                    </option>
                                 </select>
                             </p>
                             <p>
@@ -134,70 +145,7 @@
                         </fieldset>
                     </form>
                 @endif
-
-                @foreach($results as $result)
-                    <section id="{{ $result['imdbID'] }}">
-                        <figure>
-                            <img
-                                src="{{ $result['Poster'] !== 'N/A' ? $result['Poster'] : Vite::asset('resources/images/no-poster.png') }}"
-                                alt="{{ $result['Title'] ?? 'Unknown title' }}"
-                                width="100"
-                                height="100"
-                            />
-                            <figcaption>{{ $result['Title'] ?? 'Unknown title' }}</figcaption>
-                        </figure>
-{{--                        <details>--}}
-{{--                            <summary>Plot:</summary>--}}
-{{--                            <p>Plot: {{ $result['Plot'] ?? 'Unknown plot' }}</p>--}}
-{{--                        </details>--}}
-                        <p>Year: {{ $result['Year'] ?? 'Unknown year' }}</p>
-                        <p>
-                            <a href="#">💕</a>
-                            <a href="#">✅</a>
-                            {{--                        <a href="#">👍</a>--}}
-                            {{--                        <a href="#">👎</a>--}}
-                            <a href="#">Show details</a>
-                        </p>
-                    </section>
-                @endforeach
-                <section>
-                    <h1>Page navigation</h1>
-                    <nav>
-                        <ul>
-                            <li>
-                                @if ($currentPage == 1)
-                                    <span>⏪</span>
-                                @else
-                                    <a href="?page=1">⏪</a>
-                                @endif
-                            </li>
-                            <li>
-                                @if ($currentPage == 1)
-                                    <span>◀️</span>
-                                @else
-                                    <a href="?page={{ $currentPage - 1 }}">◀️</a>
-                                @endif
-                            </li>
-                            <li>
-                                {{ $currentPage }}
-                            </li>
-                            <li>
-                                @if ($currentPage == $maxPage)
-                                    <span>▶️</span>
-                                @else
-                                    <a href="?page={{ $currentPage + 1 }}">▶️</a>
-                                @endif
-                            </li>
-                            <li>
-                                @if ($currentPage == $maxPage)
-                                    <span>⏩</span>
-                                @else
-                                    <a href="?page={{ $maxPage }}">⏩</a>
-                                @endif
-                            </li>
-                        </ul>
-                    </nav>
-                </section>
+                @include('database.results')
             @endif
         @else
             <p>Please provide correct search criterion(s)!</p>

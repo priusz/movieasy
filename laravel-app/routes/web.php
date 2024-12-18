@@ -46,6 +46,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('database/sort', [DatabaseController::class, 'getDatabasePageWithSortedData'])
         ->name('database-sort');
+
+    Route::post('/update-page', [DatabaseController::class, 'updatePage'])
+        ->name('update-page');
+
 });
 
 

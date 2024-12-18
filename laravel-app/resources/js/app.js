@@ -7,6 +7,7 @@ import getNewQuote from "./script/AuthUser/Home/getNewQuote.js";
 import searchButton from "./script/AuthUser/Database/searchButton.js";
 import sortButton from "./script/AuthUser/Database/sortButton.js";
 import posterButton from "./script/AuthUser/Database/posterButton.js";
+import paginationLinks from "./script/AuthUser/Database/paginationLinks.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     getThisYear();
@@ -17,5 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(getNewQuote, 10000);
     searchButton();
     sortButton();
-    posterButton()
+    posterButton();
+    paginationLinks();
 })
