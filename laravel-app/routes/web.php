@@ -44,8 +44,12 @@ Route::middleware('auth')->group(function () {
     Route::get('database/search', [DatabaseController::class, 'getDatabasePage'])
         ->name('database-search');
 
-    Route::post('database/search', [DatabaseController::class, 'getDatabasePageWithSortedData'])
-        ->name('database-filter');
+    Route::post('database/sort', [DatabaseController::class, 'getDatabasePageWithSortedData'])
+        ->name('database-sort');
+
+    Route::post('/update-page', [DatabaseController::class, 'updatePage'])
+        ->name('update-page');
+
 });
 
 

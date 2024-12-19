@@ -21,11 +21,11 @@ class DatabaseRepository
         $client = new Client();
         $url = env('OMDB_API_URL');
 
-        if (!$filters['id']) {
+        if (!isset($filters['id'])) {
             $queryParams = [
                 's' => '*' . $filters['title'] . '*',
                 'y' => $filters['release'],
-                'type' => $filters['type'],
+                'type' => $filters['type'] != 'all' ? $filters['type'] : '',
                 'r' => 'json',
                 'page' => $filters['page'] ?? 1,
                 'apikey' => env('OMDB_API_KEY')
@@ -132,12 +132,12 @@ class DatabaseRepository
         $fields = [
             'asc-title' => 'Title',
             'desc-title' => 'Title',
-            'asc-release' => 'Release',
-            'desc-release' => 'Release',
-            'asc-rating' => 'imdbRating',
-            'desc-rating' => 'imdbRating',
-            'asc-runtime' => 'Runtime',
-            'desc-runtime' => 'Runtime',
+            'asc-release' => 'Year',
+            'desc-release' => 'Year',
+//            'asc-rating' => 'imdbRating',
+//            'desc-rating' => 'imdbRating',
+//            'asc-runtime' => 'Runtime',
+//            'desc-runtime' => 'Runtime',
         ];
 
         return $fields[$value];
@@ -147,10 +147,5 @@ class DatabaseRepository
     {
         return str_contains($value, 'asc') ? 'asc' : 'desc';
     }
-
-
-//    public function getDataByPage(int $pageNumber, array $array)
-//    {
-//    }
 
 }

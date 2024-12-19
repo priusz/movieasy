@@ -37,11 +37,4 @@ class DatabaseService
         $this->databaseRepository->getSortedData($value);
     }
 
-//    public function getDataByPage(int $pageNumber, array $array) : array
-//    {
-//        $result = $this->databaseRepository->getDataByPage($pageNumber, $array);
-//
-//        return $result;
-//    }
-
 }
