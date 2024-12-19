@@ -39,10 +39,6 @@ class DatabaseController
             ]
         );
 
-        if ($request->filled('title') && $request->filled('id')) {
-            return redirect()->back()->with('error', 'Both title and id cannot be provided at the same time! 😕')->withInput();
-        }
-
         $filters = $this->setFilters($request);
 
         session::forget('allResults');
@@ -73,11 +69,15 @@ class DatabaseController
         }
 
         if ($fetchResult['totalResults'] <= 10) {
-            session(['allResults' => $fetchResult['Search']]);
+
+            $fetchResult['Search'] = [$fetchResult['Search']];
+
+            session(['allResults' => $fetchResult,
+                'actualResults' => $fetchResult]);
 
             return view('database.database')->with([
                 'total' => $fetchResult['totalResults'],
-                'results' => $fetchResult['Search'],
+                'results' => $fetchResult['Search'][session::get('currentPage') - 1],
                 'filters' => $filters,
                 'currentPage' => session('currentPage'),
                 'maxPage' => session('maxPage'),
@@ -135,7 +135,7 @@ class DatabaseController
 
         return view('database.database')->with([
             'total' => session::get('actualResults')['totalResults'],
-            'results' => session::get('actualResults')['Search'][session::get('currentPage') - 1],
+            'results' => session::get('actualResults')['Search'][session::get('currentPage') - 1] ?? [],
             'filters' => $filters,
             'currentPage' => session('currentPage'),
             'maxPage' => session('maxPage'),
@@ -150,12 +150,19 @@ class DatabaseController
         $release = $request->input('release', '');
         $type = $request->input('type', '');
 
-        $filters = [
-            'title' => $title,
-            'id' => $id,
-            'release' => $release,
-            'type' => $type
-        ];
+        if (empty($id)) {
+            $filters = [
+                'title' => $title,
+                'release' => $release,
+                'type' => $type
+            ];
+        }
+        else
+        {
+            $filters = [
+                'id' => $id,
+            ];
+        }
 
         return $filters;
     }

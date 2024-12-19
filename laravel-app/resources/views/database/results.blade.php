@@ -18,37 +18,5 @@
             </p>
         </section>
     @endforeach
-        <nav>
-            <ul>
-                <li>
-                    @if($currentPage == 1)
-                        <p>⏪</p>
-                    @else
-                        <a href="#" class="page-link" data-page="1">⏪</a>
-                    @endif
-                </li>
-                <li>
-                    @if($currentPage == 1)
-                        <p>◀️</p>
-                    @else
-                        <a href="#" class="page-link" data-page="{{ $currentPage - 1 }}">◀️</a>
-                    @endif
-                </li>
-                <li>{{ $currentPage }}</li>
-                <li>
-                    @if($currentPage == $maxPage)
-                        <p>▶️</p>
-                    @else
-                        <a href="#" class="page-link" data-page="{{ $currentPage + 1 }}">▶️</a>
-                    @endif
-                </li>
-                <li>
-                    @if($currentPage == $maxPage)
-                        <p>⏩</p>
-                    @else
-                        <a href="#" class="page-link" data-page="{{ $maxPage }}">⏩</a>
-                    @endif
-                </li>
-            </ul>
-        </nav>
+        @include('database.pageNavigation')
 </section>

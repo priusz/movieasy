@@ -21,7 +21,7 @@ class DatabaseRepository
         $client = new Client();
         $url = env('OMDB_API_URL');
 
-        if (!$filters['id']) {
+        if (!isset($filters['id'])) {
             $queryParams = [
                 's' => '*' . $filters['title'] . '*',
                 'y' => $filters['release'],
@@ -147,10 +147,5 @@ class DatabaseRepository
     {
         return str_contains($value, 'asc') ? 'asc' : 'desc';
     }
-
-
-//    public function getDataByPage(int $pageNumber, array $array)
-//    {
-//    }
 
 }

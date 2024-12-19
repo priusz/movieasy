@@ -17,11 +17,11 @@ export default function paginationLinks() {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 },
-                body: JSON.stringify({ currentPage: targetPage }), // Az új oldalszám elküldése
+                body: JSON.stringify({ currentPage: targetPage }),
             })
                 .then(response => response.text())
                 .then(html => {
-                    resultsContainer.innerHTML = html; // Visszakapott HTML-t kicseréljük
+                    resultsContainer.innerHTML = html;
                     attachDynamicListeners();
                 })
                 .catch(error => console.error('Error:', error));
@@ -30,11 +30,7 @@ export default function paginationLinks() {
 }
 
 function attachDynamicListeners() {
-     // Újraregisztráljuk a lapozási eseményeket
-
-    // Egyéb dinamikus gombok eseményeinek újraregisztrálása
     posterButton();
     sortButton();
     paginationLinks();
-    // Ha más dinamikus esemény is szükséges, itt hívjuk őket újra
 }

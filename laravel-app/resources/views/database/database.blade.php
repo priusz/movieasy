@@ -31,8 +31,7 @@
     <h1>Search in the full database:</h1>
     <article>
         <h1>Search and filter:</h1>
-        <p>NOTE 1: The title or the exact id number is required, but not both of them!</p>
-        <p>NOTE 2: If you search by id, all other search parameters will be ignored!</p>
+        <p>NOTE: The title or the exact id number is required, but if you search by id, all other search parameters will be ignored!</p>
         <form id="search-form" action="{{ route('database-search') }}" method="post">
             @csrf
             <fieldset>
@@ -102,49 +101,15 @@
         <h1>Result: {{ isset($results) ? '( ' . $total . ' item(s) )' : ' ' }}</h1>
         @if(isset($results))
             @if($total < 1)
-                <p>No result!</p>
-                <p>{{ $error }}</p>
-            @else
-                @if($total > 1)
-                    <form id="sort-form" action="{{ route('database-sort') }}" method="post">
-                        @csrf
-                        <fieldset>
-                            <legend>Sorting field:</legend>
-                            <p>
-                                <input type="hidden" name="title" value="{{ old('title', $filters['title'] ?? '') }}">
-                                <input type="hidden" name="id" value="{{ old('id', $filters['id'] ?? '') }}">
-                                <input type="hidden" name="release"
-                                       value="{{ old('release', $filters['release'] ?? '') }}">
-                                <input type="hidden" name="type" value="{{ old('type', $filters['type'] ?? '') }}">
-                            </p>
-                            <p>
-                                <label for="sort">Sort by:</label>
-                                <select name="sort" id="sort-button">
-                                    <option value="">Choose...</option>
-                                    <option value="asc-title" {{ request('sort') == 'asc-title' ? 'selected' : '' }}>
-                                        Title A-Z
-                                    </option>
-                                    <option value="desc-title" {{ request('sort') == 'desc-title' ? 'selected' : '' }}>
-                                        Title Z-A
-                                    </option>
-                                    <option
-                                        value="asc-release" {{ request('sort') == 'asc-release' ? 'selected' : '' }}>
-                                        Year <
-                                    </option>
-                                    <option
-                                        value="desc-release" {{ request('sort') == 'desc-release' ? 'selected' : '' }}>
-                                        Year >
-                                    </option>
-                                </select>
-                            </p>
-                            <p>
-                                <input type="checkbox" name="poster" id="poster-button" value="poster"
-                                    {{ request('poster') == 'poster' ? 'checked' : '' }}/>
-                                <label for="poster">Results with poster</label>
-                            </p>
-                        </fieldset>
-                    </form>
+                @if (isset($error))
+                    <p>No result!</p>
+                    <p>{{ $error }}</p>
+                @else
+                    @include('database.sortForm')
+                    <p>No result!</p>
                 @endif
+            @else
+                @include('database.sortForm')
                 @include('database.results')
             @endif
         @else
