@@ -111,6 +111,8 @@
                     @include('database.sortForm')
                     <p class="result__noResult">No result!</p>
                 @endif
+            @elseif (count(session("allResults")) == 1)
+                @include('database.results')
             @else
                 @include('database.sortForm')
                 @include('database.results')
