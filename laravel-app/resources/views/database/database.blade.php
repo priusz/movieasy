@@ -49,9 +49,8 @@
                         @error('id')
                         <span class="search__span__error">{{ $message }}</span>
                         @enderror</label>
-                    <span>(tt ?)</span>
                     <input class="search__input search__id" type="text" name="id" id="id" value="{{ old('id', $filters['id'] ?? '') }}"
-                           pattern=".{7,}" placeholder="at least 7 digit">
+                           pattern=".{7,}" placeholder="starts with 'tt', followed by at least 7 digit">
                 </p>
             </fieldset>
             <fieldset class="filter_fieldset filter">
