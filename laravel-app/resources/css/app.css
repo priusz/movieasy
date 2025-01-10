@@ -31,9 +31,9 @@ html {
 }
 
 body {
-    height: 95vh;
-    max-width: 95vw;
-    margin: 20px auto;
+    height: 97vh;
+    max-width: 98vw;
+    margin: 1.5vh auto;
     color: var(--FONT-COLOR);
     display: flex;
     flex-direction: column;

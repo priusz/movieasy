@@ -21,7 +21,7 @@ export default function paginationLinks() {
             })
                 .then(response => response.text())
                 .then(html => {
-                    resultsContainer.innerHTML = html;
+                    resultsContainer.outerHTML = html;
                     attachDynamicListeners();
                 })
                 .catch(error => console.error('Error:', error));

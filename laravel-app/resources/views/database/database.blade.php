@@ -27,93 +27,97 @@
         <p id="error" class="header__p__error nowrap">{{ session('error') }}</p>
     @endif
 </header>
-<main>
-    <h1>Search in the full database:</h1>
-    <article>
-        <h1>Search and filter:</h1>
-        <p>NOTE: The title or the exact id number is required, but if you search by id, all other search parameters will be ignored!</p>
-        <form id="search-form" action="{{ route('database-search') }}" method="post">
+<main class="database">
+    <h1 class="database__h1 nowrap">Search in the full database:</h1>
+    <article class="database__article">
+        <h1 class="search__h1 offscreen">Search and filter:</h1>
+        <p class="search__note"><span class="note__span">NOTE:</span> The title or the exact id number is required, but if you search by id, all other search parameters will be ignored!</p>
+        <form id="search-form" class="search__form" action="{{ route('database-search') }}" method="post">
             @csrf
-            <fieldset>
-                <legend>Search field</legend>
-                <p>
-                    <label for="title">Title:</label>
-                    <input type="text" name="title" id="title" value="{{ old('title', $filters['title'] ?? '') }}"
-                           pattern="[A-Za-z0-9]{3,}" autofocus>
-                    <span>(Minimum 3 character)</span>
-                    @error('title')
-                    <span>{{ $message }}</span>
-                    @enderror
+            <fieldset class="search__fieldset search">
+                <legend class="offscreen">Search field</legend>
+                <p class="search__p">
+                    <label class="search__label" for="title">Title:
+                        @error('title')
+                        <span class="search__span__error">{{ $message }}</span>
+                        @enderror</label>
+                    <input class="search__input" type="text" name="title" id="title" value="{{ old('title', $filters['title'] ?? '') }}"
+                           pattern="[A-Za-z0-9]{3,}" placeholder="minimum 3 character" autofocus>
                 </p>
-                <p>
-                    <label for="id">IMDB ID:</label>
-                    <span>tt</span>
-                    <input type="text" name="id" id="id" value="{{ old('id', $filters['id'] ?? '') }}" pattern=".{7,}">
-                    <span>(at least 7 digit)</span>
-                    @error('id')
-                    <span>{{ $message }}</span>
-                    @enderror
+                <p class="search__p">
+                    <label class="search__label" for="id">IMDB ID:
+                        @error('id')
+                        <span class="search__span__error">{{ $message }}</span>
+                        @enderror</label>
+                    <span>(tt ?)</span>
+                    <input class="search__input search__id" type="text" name="id" id="id" value="{{ old('id', $filters['id'] ?? '') }}"
+                           pattern=".{7,}" placeholder="at least 7 digit">
                 </p>
             </fieldset>
-            <fieldset>
-                <legend>Filter field</legend>
-                <p>
-                    <label for="release">Year:</label>
-                    <select name="release" id="release">
-                        <option value="" {{ old('release', $filters['release'] ?? '') === '' ? 'selected' : '' }}>Choose
+            <fieldset class="filter_fieldset filter">
+                <legend class="offscreen">Filter year field</legend>
+                <p class="filter__p">
+                    <label class="filter__label" for="release">Year:</label>
+                    <select class="filter__select" name="release" id="release">
+                        <option class="filter__option" value="" {{ old('release', $filters['release'] ?? '') === '' ? 'selected' : '' }}>Choose
                             a year
                         </option>
-                        @for ($release = 2024; $release >= 1894; $release--)
-                            <option
+                        @for ($release = 2025; $release >= 1894; $release--)
+                            <option class="filter__option"
                                 value="{{ $release }}" {{ (string) old('release', $filters['release'] ?? '') === (string) $release ? 'selected' : '' }}>
                                 {{ $release }}
                             </option>
                         @endfor
                     </select>
                 </p>
-                <p>
-                    <input type="radio" name="type" id="movie" value="movie"
+            </fieldset>
+            <fieldset class="filter_fieldset filter">
+                <legend class="offscreen">Filter type field</legend>
+                <p class="filter__p">
+                    <input class="filter__input" type="radio" name="type" id="movie" value="movie"
                         {{ old('type', $filters['type'] ?? '') == 'movie' ? 'checked' : '' }} />
-                    <label for="movie">Movie</label>
+                    <label class="filter__label" for="movie">Movie</label>
                 </p>
-                <p>
-                    <input type="radio" name="type" id="series" value="series"
+                <p class="filter__p">
+                    <input class="filter__input" type="radio" name="type" id="series" value="series"
                         {{ old('type', $filters['type'] ?? '') == 'series' ? 'checked' : '' }} />
-                    <label for="series">Series</label>
+                    <label class="filter__label" for="series">Series</label>
                 </p>
-                <p>
-                    <input type="radio" name="type" id="episode" value="episode"
+                <p class="filter__p">
+                    <input class="filter__input" type="radio" name="type" id="episode" value="episode"
                         {{ old('type', $filters['type'] ?? '') == 'episode' ? 'checked' : '' }} />
-                    <label for="episode">Episode</label>
+                    <label class="filter__label" for="episode">Episode</label>
                 </p>
-                <p>
-                    <input type="radio" name="type" id="all" value="all"
+                <p class="filter__p">
+                    <input class="filter__input" type="radio" name="type" id="all" value="all"
                         {{ old('type', $filters['type'] ?? '') == 'all' ? 'checked' : '' }} />
-                    <label for="all">All</label>
+                    <label class="filter__label" for="all">All</label>
                 </p>
             </fieldset>
-            <a href="{{ route('home') }}">Back</a>
-            <a href="{{ route('database') }}">Clear</a>
-            <a href="#" id="search-button">Search</a>
         </form>
+        <p class="search__buttons">
+            <a class="form__button" href="{{ route('home') }}">Back</a>
+            <a class="form__button" href="{{ route('database') }}">Clear</a>
+            <a class="form__button" href="#" id="search-button">Search</a>
+        </p>
     </article>
-    <article>
-        <h1>Result: {{ isset($results) ? '( ' . $total . ' item(s) )' : ' ' }}</h1>
+    <article class="database__article result">
+        <h1 class="result__h1">Result: {{ isset($results) ? '( ' . $total . ' item(s) )' : ' ' }}</h1>
         @if(isset($results))
             @if($total < 1)
                 @if (isset($error))
-                    <p>No result!</p>
-                    <p>{{ $error }}</p>
+                    <p class="result__noResult">No result!</p>
+                    <p class="result__error">{{ $error }}</p>
                 @else
                     @include('database.sortForm')
-                    <p>No result!</p>
+                    <p class="result__noResult">No result!</p>
                 @endif
             @else
                 @include('database.sortForm')
                 @include('database.results')
             @endif
         @else
-            <p>Please provide correct search criterion(s)!</p>
+            <p class="result__noResult">Please provide correct search criterion(s)!</p>
         @endif
     </article>
 </main>

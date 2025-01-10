@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loginButton();
     registerButton();
     infoFadeOut();
-    setInterval(getNewQuote, 10000);
+    setInterval(getNewQuote, 6000);
     searchButton();
     sortButton();
     posterButton();
