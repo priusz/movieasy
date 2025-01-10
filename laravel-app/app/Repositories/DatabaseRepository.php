@@ -32,7 +32,7 @@ class DatabaseRepository
             ];
         } else {
             $queryParams = [
-                'i' => 'tt' . $filters['id'],
+                'i' => $filters['id'],
                 'r' => 'json',
                 'apikey' => env('OMDB_API_KEY')
             ];
