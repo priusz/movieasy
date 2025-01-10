@@ -1,7 +1,7 @@
-<form id="sort-form" action="{{ route('database-sort') }}" method="post">
+<form class="sort__form sort" id="sort-form" action="{{ route('database-sort') }}" method="post">
     @csrf
-    <fieldset>
-        <legend>Sorting field:</legend>
+    <fieldset class="sort__fieldset">
+        <legend class="offscreen">Sorting field:</legend>
         <p>
             <input type="hidden" name="title" value="{{ old('title', $filters['title'] ?? '') }}">
             <input type="hidden" name="id" value="{{ old('id', $filters['id'] ?? '') }}">
@@ -9,7 +9,7 @@
                    value="{{ old('release', $filters['release'] ?? '') }}">
             <input type="hidden" name="type" value="{{ old('type', $filters['type'] ?? '') }}">
         </p>
-        <p>
+        <p class="sort__sort">
             <label for="sort">Sort by:</label>
             <select name="sort" id="sort-button">
                 <option value="">Choose...</option>
@@ -29,7 +29,7 @@
                 </option>
             </select>
         </p>
-        <p>
+        <p class="sort__poster">
             <input type="checkbox" name="poster" id="poster-button" value="poster"
                 {{ request('poster') == 'poster' ? 'checked' : '' }}/>
             <label for="poster">Results with poster</label>
