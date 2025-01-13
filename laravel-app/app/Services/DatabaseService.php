@@ -37,4 +37,11 @@ class DatabaseService
         $this->databaseRepository->getSortedData($value);
     }
 
+    public static function getDetails(string $id) : array
+    {
+        $result = databaseRepository::getDetails($id);
+
+        return $result;
+    }
+
 }

@@ -1,5 +1,6 @@
 import sortButton from "./sortButton.js";
 import posterButton from "./posterButton.js";
+import detailsButton from "./detailsButton.js";
 
 export default function paginationLinks() {
     const pageLinks = document.querySelectorAll('.page-link');
@@ -33,4 +34,5 @@ function attachDynamicListeners() {
     posterButton();
     sortButton();
     paginationLinks();
+    detailsButton();
 }

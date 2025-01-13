@@ -32,7 +32,7 @@ class DatabaseRepository
             ];
         } else {
             $queryParams = [
-                'i' => 'tt' . $filters['id'],
+                'i' => $filters['id'],
                 'r' => 'json',
                 'apikey' => env('OMDB_API_KEY')
             ];
@@ -146,6 +146,29 @@ class DatabaseRepository
     private function getSortDirection(string $value): string
     {
         return str_contains($value, 'asc') ? 'asc' : 'desc';
+    }
+
+    public static function getDetails(string $id) : array
+    {
+        $client = new Client();
+        $url = env('OMDB_API_URL');
+
+        $queryParams = [
+            'i' => $id,
+            'r' => 'json',
+            'apikey' => env('OMDB_API_KEY')
+        ];
+
+        $response = $client->get($url, [
+            'query' => $queryParams,
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        $fetchResult = json_decode($response->getBody(), true);
+
+        return $fetchResult;
     }
 
 }

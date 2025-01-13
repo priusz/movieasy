@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Timea Boros">
-    <meta name="description" content="Home page of my MoviEasy app">
+    <meta name="description" content="Database page of my MoviEasy app">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Home</title>
     <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png"/>
@@ -49,9 +49,8 @@
                         @error('id')
                         <span class="search__span__error">{{ $message }}</span>
                         @enderror</label>
-                    <span>(tt ?)</span>
                     <input class="search__input search__id" type="text" name="id" id="id" value="{{ old('id', $filters['id'] ?? '') }}"
-                           pattern=".{7,}" placeholder="at least 7 digit">
+                           pattern=".{7,}" placeholder="starts with 'tt', followed by at least 7 digit">
                 </p>
             </fieldset>
             <fieldset class="filter_fieldset filter">
@@ -112,6 +111,8 @@
                     @include('database.sortForm')
                     <p class="result__noResult">No result!</p>
                 @endif
+            @elseif (count(session("allResults")) == 1)
+                @include('database.results')
             @else
                 @include('database.sortForm')
                 @include('database.results')
@@ -119,6 +120,12 @@
         @else
             <p class="result__noResult">Please provide correct search criterion(s)!</p>
         @endif
+    </article>
+    <article id="movieDetailsModal" class="modal" style="display: none;">
+        <div class="modal__content">
+            <a class="close-button" href="#">❌</a>
+            <div id="modalBody"></div>
+        </div>
     </article>
 </main>
 <footer>

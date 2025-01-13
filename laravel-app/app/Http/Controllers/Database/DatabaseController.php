@@ -31,11 +31,12 @@ class DatabaseController
         $request->validate(
             [
                 'title' => 'required_without:id|string|min:3|max:255|nullable',
-                'id' => 'required_without:title|string|min:7|nullable',
+                'id' => 'required_without:title|string|regex:/^tt\d{7,}$/|nullable',
             ],
             [
                 'title.required_without' => 'The title or the id field is required!',
                 'id.required_without' => 'The title or the id field is required!',
+                'id.regex' => 'The id must start with "tt" followed by at least 7 digits!'
             ]
         );
 
@@ -178,6 +179,12 @@ class DatabaseController
             'currentPage' => session('currentPage'),
             'maxPage' => session('maxPage'),
         ]);
+    }
+
+    public function getDetails(string $id) : View {
+        $details = databaseService::getDetails($id);
+
+        return view('database.details')->with(['details' => $details]);
     }
 
 }
