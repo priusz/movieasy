@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-page', [DatabaseController::class, 'updatePage'])
         ->name('update-page');
 
-    Route::get('/details/{id}', [DatabaseController::class, 'getDetails'])
+    Route::get('/details/{id}/{season}/{episode}', [DatabaseController::class, 'getDetails'])
         ->name('details');
 
 });

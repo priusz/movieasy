@@ -181,10 +181,18 @@ class DatabaseController
         ]);
     }
 
-    public function getDetails(string $id) : View {
-        $details = databaseService::getDetails($id);
+    public function getDetails(string $id, string $season, string $episode) : View {
+        $additionalData = ($season != '0' && $episode == '0')
+            ? databaseService::getDetails($id, 0, 0)
+            : [];
 
-        return view('database.details')->with(['details' => $details]);
+        $details = databaseService::getDetails($id, $season, $episode);
+
+//        dd($season, $additionalData, $details);
+
+        return view('database.details')->with(['details' => $details,
+            'additionalData' => $additionalData,
+            'season' => $season,]);
     }
 
 }

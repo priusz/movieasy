@@ -1,37 +1,41 @@
-<section class="modal__card" id="{{ $details['imdbID'] }}">
-    <h1 class="modal__h1">Details of {{ $details['Title'] }}</h1>
-    <figure class="modal__img">
-        <img
-            src="{{ $details['Poster'] !== 'N/A' ? $details['Poster'] : Vite::asset('resources/images/no-poster.png') }}"
-            alt="{{ $details['Title'] ?? 'Unknown title' }}"
-            width="100"
-            height="100"
-        />
-        <figcaption class="offscreen">{{ $details['Title'] ?? 'Unknown title' }}</figcaption>
-    </figure>
+<section class="modal__card" id="{{ isset($details['imdbID']) ??
+    $additionalData['imdbID'] }}">
+    @if(empty($additionalData))
+        <h1 class="modal__h1">Details of {{ $details['Title'] }}</h1>
+        <figure class="modal__img">
+            <img
+                src="{{ $details['Poster'] !== 'N/A' ? $details['Poster'] : Vite::asset('resources/images/no-poster.png') }}"
+                alt="{{ $details['Title'] ?? 'Unknown title' }}"
+                width="100"
+                height="100"
+            />
+            <figcaption class="offscreen">{{ $details['Title'] ?? 'Unknown title' }}</figcaption>
+        </figure>
+    @else
+        <h1 class="modal__h1">Details of {{ $additionalData['Title'] . ' ' . $season . ' season'}}</h1>
+        <figure class="modal__img">
+            <img
+                src="{{ $additionalData['Poster'] !== 'N/A' ? $additionalData['Poster'] : Vite::asset('resources/images/no-poster.png') }}"
+                alt="{{ $additionalData['Title'] ?? 'Unknown title' }}"
+                width="100"
+                height="100"
+            />
+            <figcaption class="offscreen">{{ $additionalData['Title'] ?? 'Unknown title' }}</figcaption>
+        </figure>
+    @endif
+
     <div class="modal__data">
-        <p><span class="modal__data__type">Title: </span>{{ $details['Title'] ?? 'Unknown title' }}</p>
-        <p><span class="modal__data__type">Type: </span>{{ $details['Type'] ?? 'Unknown type' }}</p>
-        <p><span class="modal__data__type">Year: </span>{{ $details['Year'] ?? 'Unknown year' }}</p>
-        <p><span class="modal__data__type">Runtime: </span>{{ $details['Runtime'] ?? 'Unknown runtime' }}</p>
-        <p><span class="modal__data__type">Released: </span>{{ $details['Released'] ?? 'Unknown release date' }}</p>
-        <p><span class="modal__data__type">Genre: </span>{{ $details['Genre'] ?? 'Unknown genre' }}</p>
-        <p><span class="modal__data__type">Director: </span>{{ $details['Director'] ?? 'Unknown director' }}</p>
-        <p><span class="modal__data__type">Writer: </span>{{ $details['Writer'] ?? 'Unknown writer' }}</p>
-        <p><span class="modal__data__type">Actors: </span>{{ $details['Actors'] ?? 'Unknown actors' }}</p>
-        <p><span class="modal__data__type">Language: </span>{{ $details['Language'] ?? 'Unknown language' }}</p>
-        <p><span class="modal__data__type">Awards: </span>{{ $details['Awards'] ?? 'Unknown awards' }}</p>
-        <p><span class="modal__data__type">IMDB Rating: </span>{{ $details['imdbRating'] ?? 'Unknown IMDB rating' }}</p>
-        <p><span class="modal__data__type">IMDB Votes: </span>{{ $details['imdbVotes'] ?? 'Unknown IMDB votes' }}</p>
-        <p><span class="modal__data__type">IMDB ID: </span>{{ $details['imdbID'] ?? 'Unknown IMDB ID' }}</p>
-        <details>
-            <summary>
-                <span class="modal__data__type">Plot: </span>
-            </summary>
-            <p>
-                {{ $details['Plot'] ?? 'Unknown plot' }}
-            </p>
-        </details>
+        @if(isset($details['Type']))
+            @if($details['Type'] == 'movie')
+                @include('database.modal.movieModal')
+            @elseif($details['Type'] == 'series')
+                @include('database.modal.seriesModal')
+            @elseif($details['Type'] == 'episode')
+                @include('database.modal.episodeModal')
+            @endif
+        @else
+            @include('database.modal.seasonModal')
+        @endif
     </div>
     <p class="modal__action">
         <a class="modal__action__button" href="#">🖤 ❤️ Favorite</a>
