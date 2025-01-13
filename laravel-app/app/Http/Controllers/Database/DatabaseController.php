@@ -181,4 +181,10 @@ class DatabaseController
         ]);
     }
 
+    public function getDetails(string $id) : View {
+        $details = databaseService::getDetails($id);
+
+        return view('database.details')->with(['details' => $details]);
+    }
+
 }

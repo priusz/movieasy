@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Timea Boros">
-    <meta name="description" content="Home page of my MoviEasy app">
+    <meta name="description" content="Database page of my MoviEasy app">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Home</title>
     <link rel="icon" href="{{ Vite::asset('resources/images/favicon.png') }}" type="image/png"/>
@@ -120,6 +120,12 @@
         @else
             <p class="result__noResult">Please provide correct search criterion(s)!</p>
         @endif
+    </article>
+    <article id="movieDetailsModal" class="modal" style="display: none;">
+        <div class="modal__content">
+            <a class="close-button" href="#">❌</a>
+            <div id="modalBody"></div>
+        </div>
     </article>
 </main>
 <footer>

@@ -13,7 +13,7 @@
             <p class="item__actions">
                 <a href="#">🖤 ❤️ Favorite</a>
                 <a href="#">➕ ✅ My list</a>
-                <a href="#">📰 Details</a>
+                <a href="#" class="detailsButton" data-id="{{ $result['imdbID'] }}">📰 Details</a>
             </p>
             <p class="item__title">{{ $result['Title'] ?? 'Unknown title' }} ({{ $result['Year'] ?? 'Unknown year' }})</p>
         </section>

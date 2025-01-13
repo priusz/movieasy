@@ -8,6 +8,7 @@ import searchButton from "./script/AuthUser/Database/searchButton.js";
 import sortButton from "./script/AuthUser/Database/sortButton.js";
 import posterButton from "./script/AuthUser/Database/posterButton.js";
 import paginationLinks from "./script/AuthUser/Database/paginationLinks.js";
+import detailsButton from "./script/AuthUser/Database/detailsButton.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     getThisYear();
@@ -20,4 +21,5 @@ document.addEventListener('DOMContentLoaded', function () {
     sortButton();
     posterButton();
     paginationLinks();
+    detailsButton();
 })
