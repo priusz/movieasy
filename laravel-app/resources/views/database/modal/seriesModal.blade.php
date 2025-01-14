@@ -21,7 +21,7 @@
     <summary>
         <span class="modal__data__type">Plot: </span>
     </summary>
-    <p>
+    <p class="details__p">
         {{ $details['Plot'] ?? 'Unknown plot' }}
     </p>
 </details>
@@ -30,9 +30,9 @@
         <summary>
             <span class="modal__data__type">Seasons: </span>
         </summary>
-        <p>
+        <p class="season__container">
             @for($x = 1; $x <= $details['totalSeasons']; $x++)
-                <a href="#" class="detailsButton" data-id="{{ $details['imdbID'] }}" data-season="{{ $x }}">{{ $x }}</a>
+                <a href="#" class="detailsButton" data-id="{{ $details['imdbID'] }}" data-season="{{ $x }}">{{ $x }}. season</a>
             @endfor
         </p>
     </details>

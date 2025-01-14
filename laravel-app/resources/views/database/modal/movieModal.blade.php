@@ -16,7 +16,7 @@
     <summary>
         <span class="modal__data__type">Plot: </span>
     </summary>
-    <p>
+    <p class="details__p">
         {{ $details['Plot'] ?? 'Unknown plot' }}
     </p>
 </details>

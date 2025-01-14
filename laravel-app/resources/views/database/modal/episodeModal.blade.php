@@ -18,12 +18,12 @@
     <summary>
         <span class="modal__data__type">Plot: </span>
     </summary>
-    <p>
+    <p class="details__p">
         {{ $details['Plot'] ?? 'Unknown plot' }}
     </p>
 </details>
-<p>
-    <a href="#" class="detailsButton" data-id="{{ $details['seriesID'] }}"
+<p class="details__p show__season__series__container">
+    <a href="#" class="detailsButton show__season__button" data-id="{{ $details['seriesID'] }}"
        data-season="{{ $details['Season'] }}">Season details</a>
-    <a href="#" class="detailsButton" data-id="{{ $details['seriesID'] }}">Series details</a>
+    <a href="#" class="detailsButton show__series__button" data-id="{{ $details['seriesID'] }}">Series details</a>
 </p>

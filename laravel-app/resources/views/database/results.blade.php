@@ -11,9 +11,9 @@
                 <figcaption class="offscreen">{{ $result['Title'] ?? 'Unknown title' }}</figcaption>
             </figure>
             <p class="item__actions">
-                <a href="#">🖤 ❤️ Favorite</a>
-                <a href="#">➕ ✅ My list</a>
-                <a href="#" class="detailsButton" data-id="{{ $result['imdbID'] }}">📰 Details</a>
+                <a class="item__action__button" href="#">🖤 ❤️ Favorite</a>
+                <a class="item__action__button" href="#">➕ ✅ My list</a>
+                <a href="#" class="detailsButton item__action__button" data-id="{{ $result['imdbID'] }}">📰 Details</a>
             </p>
             <p class="item__title">{{ $result['Title'] ?? 'Unknown title' }} ({{ $result['Year'] ?? 'Unknown year' }})</p>
         </section>

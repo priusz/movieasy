@@ -381,6 +381,10 @@ main {
     gap: 5px;
 }
 
+.item__action__button:hover {
+    text-decoration: none;
+}
+
 .item__title {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -462,7 +466,7 @@ main {
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 2.5fr;
-    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-rows: 1fr 5fr 0.5fr;
     gap: 10px;
 }
 
@@ -514,4 +518,43 @@ main {
 .modal__data__type {
     font-weight: bold;
     font-size: 110%;
+}
+
+.details__p {
+    padding-left: 20px;
+}
+
+.season__container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.season__container a:hover, .episode__container a:hover {
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.episode__container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.show__season__series__container {
+    display: flex;
+    padding: 20px;
+    gap: var(--GAP);
+}
+
+.show__season__button, .show__series__button {
+    font-size: clamp(0.2rem , 1vw, 1rem);
+    border: var(--BORDERS);
+    box-shadow: 0 0 10px var(--BORDER-COLOR);
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.show__season__button:hover, .show__series__button:hover {
+    text-decoration: none;
 }
