@@ -3,11 +3,15 @@ export default function detailsButton() {
         link.addEventListener('click', event => {
             event.preventDefault();
             const imdbID = link.getAttribute("data-id");
+            const season = link.getAttribute("data-season") ?? 0;
+            const episode = link.getAttribute("data-episode") ?? 0;
 
-            fetch(`/details/${imdbID}`)
+            fetch(`/details/${imdbID}/${season}/${episode}`)
                 .then(response => response.text())
                 .then(html => {
                     document.querySelector('#modalBody').innerHTML = html;
+
+                    detailsButton();
 
                     const modal = document.querySelector('#movieDetailsModal');
                     modal.style.display = 'flex';

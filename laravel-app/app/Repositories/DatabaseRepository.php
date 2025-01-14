@@ -148,16 +148,34 @@ class DatabaseRepository
         return str_contains($value, 'asc') ? 'asc' : 'desc';
     }
 
-    public static function getDetails(string $id) : array
+    public static function getDetails(string $id, string $season, string $episode) : array
     {
         $client = new Client();
         $url = env('OMDB_API_URL');
+        $queryParams = [];
 
-        $queryParams = [
-            'i' => $id,
-            'r' => 'json',
-            'apikey' => env('OMDB_API_KEY')
-        ];
+        if ($season == '0' && $episode == '0') {
+            $queryParams = [
+                'i' => $id,
+                'r' => 'json',
+                'apikey' => env('OMDB_API_KEY')
+            ];
+        } else if ($season != "0" && $episode == '0') {
+            $queryParams = [
+                'i' => $id,
+                'Season' => $season,
+                'r' => 'json',
+                'apikey' => env('OMDB_API_KEY')
+            ];
+        } else if ($season != "0" && $episode != "0") {
+            $queryParams = [
+                'i' => $id,
+                'Season' => $season,
+                'Episode' => $episode,
+                'r' => 'json',
+                'apikey' => env('OMDB_API_KEY')
+            ];
+        }
 
         $response = $client->get($url, [
             'query' => $queryParams,

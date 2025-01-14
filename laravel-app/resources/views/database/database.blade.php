@@ -82,11 +82,11 @@
                         {{ old('type', $filters['type'] ?? '') == 'series' ? 'checked' : '' }} />
                     <label class="filter__label" for="series">Series</label>
                 </p>
-                <p class="filter__p">
-                    <input class="filter__input" type="radio" name="type" id="episode" value="episode"
-                        {{ old('type', $filters['type'] ?? '') == 'episode' ? 'checked' : '' }} />
-                    <label class="filter__label" for="episode">Episode</label>
-                </p>
+{{--                <p class="filter__p">--}}
+{{--                    <input class="filter__input" type="radio" name="type" id="episode" value="episode"--}}
+{{--                        {{ old('type', $filters['type'] ?? '') == 'episode' ? 'checked' : '' }} />--}}
+{{--                    <label class="filter__label" for="episode">Episode</label>--}}
+{{--                </p>--}}
                 <p class="filter__p">
                     <input class="filter__input" type="radio" name="type" id="all" value="all"
                         {{ old('type', $filters['type'] ?? '') == 'all' ? 'checked' : '' }} />
