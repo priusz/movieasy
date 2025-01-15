@@ -10,13 +10,15 @@ use PDO;
 class DatabaseRepository
 {
     protected PDO $pdo;
+    protected CollectionRepository $collectionRepository;
 
-    public function __construct()
+    public function __construct(CollectionRepository $collectionRepository)
     {
         $this->pdo = Connection::connect();
+        $this->collectionRepository = $collectionRepository;
     }
 
-    public function getFetchResult (array $filters) : array
+    public function getFetchResult(array $filters): array
     {
         $client = new Client();
         $url = env('OMDB_API_URL');
@@ -50,7 +52,7 @@ class DatabaseRepository
         return $fetchResult;
     }
 
-    public function fetchAll(array $filters, array $fetchResult) : array
+    public function fetchAll(array $filters, array $fetchResult): array
     {
         $totalPageNumber = ceil($fetchResult['totalResults'] / 10);
         $fetchResult['Search'] = [];
@@ -80,7 +82,7 @@ class DatabaseRepository
         return $fetchResult;
     }
 
-    public function getDataWithPoster() : void
+    public function getDataWithPoster(): void
     {
         $actualResults = session::get('actualResults');
 
@@ -148,7 +150,7 @@ class DatabaseRepository
         return str_contains($value, 'asc') ? 'asc' : 'desc';
     }
 
-    public static function getDetails(string $id, string $season, string $episode) : array
+    public static function getDetails(string $id, string $season, string $episode): array
     {
         $client = new Client();
         $url = env('OMDB_API_URL');
@@ -188,5 +190,5 @@ class DatabaseRepository
 
         return $fetchResult;
     }
-
 }
+

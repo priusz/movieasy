@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Database;
 
+use App\Services\CollectionService;
 use App\Services\DatabaseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -10,10 +11,12 @@ use Illuminate\View\View;
 class DatabaseController
 {
     protected DatabaseService  $databaseService;
+    protected CollectionService $collectionService;
 
-    public function __construct(DatabaseService  $databaseService)
+    public function __construct(DatabaseService  $databaseService, CollectionService $collectionService)
     {
         $this->databaseService = $databaseService;
+        $this->collectionService = $collectionService;
     }
 
     public function getDatabasePage() : View
@@ -60,6 +63,11 @@ class DatabaseController
         }
 
         if (!isset($fetchResult['totalResults'])) {
+
+            $fetchResult = $this->collectionService->addPersonalData($fetchResult);
+
+            session(['allResults' => [$fetchResult]]);
+
             return view('database.database')->with([
                 'total' => 1,
                 'results' => [$fetchResult],
@@ -70,6 +78,8 @@ class DatabaseController
         }
 
         if ($fetchResult['totalResults'] <= 10) {
+
+            $fetchResult['Search'] = array_map([$this->collectionService, 'addPersonalData'], $fetchResult['Search']);
 
             $fetchResult['Search'] = [$fetchResult['Search']];
 
@@ -86,6 +96,9 @@ class DatabaseController
         }
 
         $allResult = $this->databaseService->fetchAll($filters, $fetchResult);
+
+        $allResult['Search'][session::get('currentPage') - 1] =
+            array_map([$this->collectionService, 'addPersonalData'], $allResult['Search'][session::get('currentPage') - 1]);
 
 //        dd($allResult);
 
@@ -190,7 +203,7 @@ class DatabaseController
 
 //        dd($season, $additionalData, $details);
 
-        return view('database.details')->with(['details' => $details,
+        return view('database.item.details')->with(['details' => $details,
             'additionalData' => $additionalData,
             'season' => $season,]);
     }

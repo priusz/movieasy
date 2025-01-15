@@ -31,7 +31,8 @@
     <h1 class="database__h1 nowrap">Search in the full database:</h1>
     <article class="database__article">
         <h1 class="search__h1 offscreen">Search and filter:</h1>
-        <p class="search__note"><span class="note__span">NOTE:</span> The title or the exact id number is required, but if you search by id, all other search parameters will be ignored!</p>
+        <p class="search__note"><span class="note__span">NOTE:</span> The title or the exact id number is required, but
+            if you search by id, all other search parameters will be ignored!</p>
         <form id="search-form" class="search__form" action="{{ route('database-search') }}" method="post">
             @csrf
             <fieldset class="search__fieldset search">
@@ -41,7 +42,8 @@
                         @error('title')
                         <span class="search__span__error">{{ $message }}</span>
                         @enderror</label>
-                    <input class="search__input" type="text" name="title" id="title" value="{{ old('title', $filters['title'] ?? '') }}"
+                    <input class="search__input" type="text" name="title" id="title"
+                           value="{{ old('title', $filters['title'] ?? '') }}"
                            pattern="[A-Za-z0-9]{3,}" placeholder="minimum 3 character" autofocus>
                 </p>
                 <p class="search__p">
@@ -49,7 +51,8 @@
                         @error('id')
                         <span class="search__span__error">{{ $message }}</span>
                         @enderror</label>
-                    <input class="search__input search__id" type="text" name="id" id="id" value="{{ old('id', $filters['id'] ?? '') }}"
+                    <input class="search__input search__id" type="text" name="id" id="id"
+                           value="{{ old('id', $filters['id'] ?? '') }}"
                            pattern=".{7,}" placeholder="starts with 'tt', followed by at least 7 digit">
                 </p>
             </fieldset>
@@ -58,12 +61,13 @@
                 <p class="filter__p">
                     <label class="filter__label" for="release">Year:</label>
                     <select class="filter__select" name="release" id="release">
-                        <option class="filter__option" value="" {{ old('release', $filters['release'] ?? '') === '' ? 'selected' : '' }}>Choose
+                        <option class="filter__option"
+                                value="" {{ old('release', $filters['release'] ?? '') === '' ? 'selected' : '' }}>Choose
                             a year
                         </option>
                         @for ($release = 2025; $release >= 1894; $release--)
                             <option class="filter__option"
-                                value="{{ $release }}" {{ (string) old('release', $filters['release'] ?? '') === (string) $release ? 'selected' : '' }}>
+                                    value="{{ $release }}" {{ (string) old('release', $filters['release'] ?? '') === (string) $release ? 'selected' : '' }}>
                                 {{ $release }}
                             </option>
                         @endfor
@@ -82,11 +86,11 @@
                         {{ old('type', $filters['type'] ?? '') == 'series' ? 'checked' : '' }} />
                     <label class="filter__label" for="series">Series</label>
                 </p>
-{{--                <p class="filter__p">--}}
-{{--                    <input class="filter__input" type="radio" name="type" id="episode" value="episode"--}}
-{{--                        {{ old('type', $filters['type'] ?? '') == 'episode' ? 'checked' : '' }} />--}}
-{{--                    <label class="filter__label" for="episode">Episode</label>--}}
-{{--                </p>--}}
+                {{--                <p class="filter__p">--}}
+                {{--                    <input class="filter__input" type="radio" name="type" id="episode" value="episode"--}}
+                {{--                        {{ old('type', $filters['type'] ?? '') == 'episode' ? 'checked' : '' }} />--}}
+                {{--                    <label class="filter__label" for="episode">Episode</label>--}}
+                {{--                </p>--}}
                 <p class="filter__p">
                     <input class="filter__input" type="radio" name="type" id="all" value="all"
                         {{ old('type', $filters['type'] ?? '') == 'all' ? 'checked' : '' }} />
@@ -111,7 +115,7 @@
                     @include('database.sortForm')
                     <p class="result__noResult">No result!</p>
                 @endif
-            @elseif (count(session("allResults")) == 1)
+            @elseif ($total == 1 || count(session("allResults")) == 1)
                 @include('database.results')
             @else
                 @include('database.sortForm')
