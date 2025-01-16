@@ -38,7 +38,8 @@
         @endif
     </div>
     <p class="modal__action">
-        <a class="modal__action__button" href="#">🖤 ❤️ Favorite</a>
         <a class="modal__action__button" href="#">➕ ✅ My list</a>
+        <a class="modal__action__button" href="#">➕ ❤️ Favorite</a>
+        <a class="modal__action__button" href="#">➕ 📺 Watchlist</a>
     </p>
 </section>

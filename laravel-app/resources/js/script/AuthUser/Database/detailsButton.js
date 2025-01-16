@@ -1,5 +1,8 @@
 export default function detailsButton() {
-    document.querySelectorAll(".detailsButton").forEach(link=> {
+    document.querySelectorAll(".detailsButton:not([data-listened])").forEach(link=> {
+
+        link.setAttribute('data-listened', 'true');
+
         link.addEventListener('click', event => {
             event.preventDefault();
             const imdbID = link.getAttribute("data-id");

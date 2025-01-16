@@ -25,7 +25,7 @@
         {{ $details['Plot'] ?? 'Unknown plot' }}
     </p>
 </details>
-@if($details['totalSeasons'] > 1)
+@if($details['totalSeasons'] != 'N/A' && $details['totalSeasons'] > 1)
     <details>
         <summary>
             <span class="modal__data__type">Seasons: </span>

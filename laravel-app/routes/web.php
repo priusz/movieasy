@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthUserController;
+use App\Http\Controllers\Collection\CollectionController;
 use App\Http\Controllers\Database\DatabaseController;
-use App\Http\Controllers\Guest\UserController;
+use App\Http\Controllers\Guest\GuestUserController;
 use App\Services\QuoteService;
 use Illuminate\Support\Facades\Route;
 
@@ -10,16 +11,16 @@ Route::middleware('guest')->group(function () {
     Route::get('/', function () { return view('welcome'); })
         ->name('welcome');
 
-    Route::get('register', [UserController::class, 'getRegisterPage'])
+    Route::get('register', [GuestUserController::class, 'getRegisterPage'])
         ->name('register');
 
-    Route::post('register', [UserController::class, 'register'])
+    Route::post('register', [GuestUserController::class, 'register'])
         ->name('register');
 
-    Route::get('login', [UserController::class, 'getLoginPage'])
+    Route::get('login', [GuestUserController::class, 'getLoginPage'])
         ->name('login');
 
-    Route::post('login', [UserController::class, 'login'])
+    Route::post('login', [GuestUserController::class, 'login'])
         ->name('login');
 });
 
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/details/{id}/{season}/{episode}', [DatabaseController::class, 'getDetails'])
         ->name('details');
+
+    Route::get('/update/myList/{itemId}', [CollectionController::class, 'updateMyList'])
+        ->name('updateMyList');
 
 });
 
