@@ -557,7 +557,7 @@ main {
 }
 
 .show__season__button, .show__series__button {
-    font-size: clamp(0.2rem , 1vw, 1rem);
+    font-size: clamp(0.2rem , 1.5vw, 1rem);
     border: var(--BORDERS);
     box-shadow: 0 0 10px var(--BORDER-COLOR);
     padding: 0.5rem;
@@ -567,4 +567,20 @@ main {
 
 .show__season__button:hover, .show__series__button:hover {
     text-decoration: none;
+}
+
+.green {
+    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+}
+
+.green__red{
+    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 0, 0, 0.3), rgba(255, 255, 255, 0.6));
+}
+
+.green__blue{
+    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 255, 255, 0.6), rgba(0, 0, 255, 0.3));
+}
+
+.green__red__blue {
+    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 0, 0, 0.3), rgba(0, 0, 255, 0.3));
 }

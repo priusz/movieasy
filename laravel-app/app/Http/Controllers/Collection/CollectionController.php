@@ -37,10 +37,26 @@ class CollectionController
         try {
             $success = $this->collectionService->updateMyList($id, $type);
 
-            $result['onTheList'] = $success;
-
             if ($success) {
-                return view('database.item.singleResult')->with('result', $result)->with('status', 'Added to your collection! 😊');
+                $result['onTheList'] = !$result['onTheList'];
+
+                if (count(session('allResults')) == 1) {
+                    $allResults[0] = $result;
+                    session(['allResults' => $allResults]);
+                } else {
+                    $currentPageData = session('actualResults')['Search'][session('currentPage') - 1];
+                    foreach ($currentPageData as &$item) {
+                        if ($item['imdbID'] === $id) {
+                            $item['onTheList'] = $result['onTheList'];
+                            break;
+                        }
+                    }
+                    $actualResults = session('actualResults');
+                    $actualResults['Search'][session('currentPage') - 1] = $currentPageData;
+                    session(['actualResults' => $actualResults]);
+                }
+
+                return view('database.item.singleResult')->with('result', $result);
             } else {
                 return redirect()->back()->with('error', 'Something went wrong, item not added to your collection! 😕');
             }
@@ -49,7 +65,5 @@ class CollectionController
             Log::error('Add to collection list error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error! 😕')->withInput();
         }
-
     }
-
 }

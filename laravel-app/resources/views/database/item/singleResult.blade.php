@@ -1,4 +1,4 @@
-<section class="item__card" id="{{ $result['imdbID'] }}">
+<section class="item__card {{ $result['onTheList'] ? 'green' : ''}}" id="{{ $result['imdbID'] }}">
     <figure class="item__image">
         <img
             src="{{ $result['Poster'] !== 'N/A' ? $result['Poster'] : Vite::asset('resources/images/no-poster.png') }}"
@@ -12,10 +12,12 @@
         <a class="item__action__button" data-action-id="item-my-list"
            title="{{ $result['onTheList'] ? 'Delete from my list' : 'Add to my list' }}"
            data-id='{{ $result['imdbID'] }}' href="#">{{ $result['onTheList'] ? '✅' : '➕' }}  My list</a>
-        <a class="item__action__button" data-action-id="item-favorite"
-           data-id='{{ $result['imdbID'] }}' href="#">➕ ❤️ Favorite</a>
-        <a class="item__action__button" data-action-id="item-watchlist"
-           data-id='{{ $result['imdbID'] }}' href="#">➕ 📺 Watchlist</a>
+        @if($result['onTheList'])
+            <a class="item__action__button" data-action-id="item-favorite"
+               data-id='{{ $result['imdbID'] }}' href="#">➕ ❤️ Favorite</a>
+            <a class="item__action__button" data-action-id="item-watchlist"
+               data-id='{{ $result['imdbID'] }}' href="#">➕ 📺 Watchlist</a>
+        @endif
         <a href="#" class="detailsButton"
            data-id="{{ $result['imdbID'] }}">📰 Details</a>
     </p>
