@@ -60,6 +60,8 @@ class CollectionRepository
 
             return false;
         }
+
+        return false;
     }
 
 

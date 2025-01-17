@@ -145,7 +145,9 @@ class DatabaseController
         session::put('currentPage', 1);
         session::put('maxPage', ceil(session::get('actualResults')['totalResults'] / 10) );
 
-        //dd(session::get('maxPage'));
+        $actualResults = session::get('actualResults');
+        $actualResults['Search'][session::get('currentPage') - 1] = array_map([$this->collectionService, 'addPersonalData'], $actualResults['Search'][session::get('currentPage') - 1]);
+        session(['actualResults' => $actualResults]);
 
         return view('database.database')->with([
             'total' => session::get('actualResults')['totalResults'],
@@ -185,6 +187,10 @@ class DatabaseController
     {
         $currentPage = $request->input('currentPage');
         session(['currentPage' => $currentPage]);
+
+        $actualResults = session::get('actualResults');
+        $actualResults['Search'][session::get('currentPage') - 1] = array_map([$this->collectionService, 'addPersonalData'], $actualResults['Search'][session::get('currentPage') - 1]);
+        session(['actualResults' => $actualResults]);
 
         return view('database.results')->with([
             'total' => session::get('actualResults')['totalResults'],
