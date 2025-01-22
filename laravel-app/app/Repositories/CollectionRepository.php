@@ -71,18 +71,26 @@ class CollectionRepository
         $userId = auth()->id();
 
         try {
-            $query = "SELECT COUNT(*) as count FROM users_collection_list WHERE userID = :userID AND imdbID = :imdbID";
+            $query = "SELECT * FROM users_collection_list WHERE userID = :userID AND imdbID = :imdbID";
             $stmt = $this->pdo->prepare($query);
 
             $stmt->bindParam(':userID', $userId);
             $stmt->bindParam(':imdbID', $id);
 
             $stmt->execute();
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch();
 
-            $onTheList = $result['count'] > 0;
+            $onTheList = !empty($result);
 
             $item['onTheList'] = $onTheList;
+
+            if ($onTheList) {
+                $item['favorite'] = (bool)$result['favorite'];
+                $item['watchlist'] = (bool)$result['watchlist'];
+            } else {
+                $item['favorite'] = false;
+                $item['watchlist'] = false;
+            }
 
             return $item;
 
@@ -93,6 +101,9 @@ class CollectionRepository
             ]);
 
             $item['onTheList'] = false;
+            $item['favorite'] = false;
+            $item['watchlist'] = false;
+
             return $item;
         }
     }
