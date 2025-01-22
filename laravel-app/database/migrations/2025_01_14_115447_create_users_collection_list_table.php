@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('userID')->constrained('users')->onDelete('cascade');
             $table->string('imdbID');
             $table->string('type');
-            $table->integer('series')->nullable();
             $table->integer('season')->nullable();
             $table->integer('episode')->nullable();
             $table->boolean('favorite')->default(false);
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('users_collection_list');
     }
 };

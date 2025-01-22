@@ -12,20 +12,21 @@ export default function itemActionButton() {
 
             event.preventDefault();
 
-            const target = action.getAttribute('data-action-id');
+            const target = action.getAttribute('data-action-name');
             const itemId = action.getAttribute('data-id');
+            const season = action.getAttribute('data-season');
+            const episode = action.getAttribute('data-episode');
 
-            if (target === 'item-my-list') fetchMyList(itemId);
-            else if (target === 'item-favorite') fetchFavorite(itemId);
-            else if (target === 'item-watchlist') fetchWatchlist(itemId);
+            if (target === 'item-my-list' || target === 'item-favorite' || 'item-watchlist') fetchItemUpdate(target, itemId);
+            else if (target === 'modal-my-list' || target === 'modal-favorite' || target === 'modal-watchlist') fetchModalUpdate(target, itemId, season, episode); //item fetch???
 
         });
     });
 }
 
-function fetchMyList(itemId) {
+function fetchItemUpdate(target, itemId) {
 
-    fetch(`/update/myList/${itemId}`)
+    fetch(`/update/item/${target}/${itemId}`)
         .then(response => response.text())
         .then(html => {
             document.getElementById(`${itemId}`).outerHTML = html;
@@ -35,13 +36,10 @@ function fetchMyList(itemId) {
 
 }
 
-function fetchFavorite(itemId) {
+function fetchModalUpdate(itemId) {
 
 }
 
-function fetchWatchlist(itemId) {
-
-}
 
 function attachDynamicListeners() {
     detailsButton();

@@ -570,17 +570,17 @@ main {
 }
 
 .green {
-    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
 }
 
 .green__red{
-    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 0, 0, 0.3), rgba(255, 255, 255, 0.6));
+    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 255, 255, 0.6), rgba(255, 0, 0, 0.2), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
 }
 
 .green__blue{
-    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 255, 255, 0.6), rgba(0, 0, 255, 0.3));
+    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6), rgba(0, 0, 255, 0.2));
 }
 
 .green__red__blue {
-    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 0, 0, 0.3), rgba(0, 0, 255, 0.3));
+    background-image: linear-gradient(rgba(0, 128, 0, 0.3), rgba(255, 255, 255, 0.6), rgba(255, 0, 0, 0.2), rgba(255, 255, 255, 0.6), rgba(0, 0, 255, 0.2));
 }

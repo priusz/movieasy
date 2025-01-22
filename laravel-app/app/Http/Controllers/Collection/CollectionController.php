@@ -16,7 +16,7 @@ class CollectionController
         $this->collectionService = $collectionService;
     }
 
-    public function updateMyList(string $id) {
+    public function updateItem(string $target, string $id) {
 
         if (count(session('allResults')) == 1) {
 
@@ -35,10 +35,19 @@ class CollectionController
         $type = $result['Type'];
 
         try {
-            $success = $this->collectionService->updateMyList($id, $type);
+            $success = $this->collectionService->updateItem($target, $id, $type);
 
             if ($success) {
-                $result['onTheList'] = !$result['onTheList'];
+
+                if ($target === 'item-my-list') {
+                    $result['onTheList'] = !$result['onTheList'];
+                    if (!$result['onTheList']) {
+                        $result['favorite'] = false;
+                        $result['watchlist'] = false;
+                    }
+                }
+                else if ($target === 'item-favorite') $result['favorite'] = !$result['favorite'];
+                else if ($target === 'item-watchlist') $result['watchlist'] = !$result['watchlist'];
 
                 if (count(session('allResults')) == 1) {
                     $allResults[0] = $result;
@@ -47,7 +56,16 @@ class CollectionController
                     $currentPageData = session('actualResults')['Search'][session('currentPage') - 1];
                     foreach ($currentPageData as &$item) {
                         if ($item['imdbID'] === $id) {
-                            $item['onTheList'] = $result['onTheList'];
+                            if ($target === 'item-my-list') {
+                                $item['onTheList'] = $result['onTheList'];
+                                if (!$result['onTheList']) {
+                                    $item['favorite'] = false;
+                                    $item['watchlist'] = false;
+                                }
+                            }
+                            else if ($target === 'item-favorite') $item['favorite'] = $result['favorite'];
+                            else if ($target === 'item-watchlist') $item['watchlist'] = $result['watchlist'];
+
                             break;
                         }
                     }
@@ -58,11 +76,11 @@ class CollectionController
 
                 return view('database.item.singleResult')->with('result', $result);
             } else {
-                return redirect()->back()->with('error', 'Something went wrong, item not added to your collection! 😕');
+                return redirect()->back()->with('error', 'Something went wrong! 😕');
             }
 
         } catch (Exception $e) {
-            Log::error('Add to collection list error: ' . $e->getMessage());
+            Log::error('Update an item error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error! 😕')->withInput();
         }
     }
