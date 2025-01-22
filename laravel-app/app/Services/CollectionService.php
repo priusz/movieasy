@@ -13,9 +13,9 @@ class CollectionService
         $this->collectionRepository = $collectionRepository;
     }
 
-    public function updateMyList(string $id, string $type) : bool
+    public function updateItem(string $target, string $id, string $type) : bool
     {
-        $result = $this->collectionRepository->updateMyList($id, $type);
+        $result = $this->collectionRepository->updateItem($target, $id, $type);
 
         return $result;
     }
