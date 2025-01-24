@@ -438,7 +438,6 @@ main {
     border-radius: var(--BORDER-RADIUS);
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 0 4px var(--BORDER-COLOR);
-    padding: 20px;
     width: 80%;
     height: 90%;
     max-height: 600px;
@@ -478,6 +477,7 @@ main {
     align-items: center;
     text-align: center;
     font-size: 1.5rem;
+    padding: 20px;
 }
 
 .modal__action {
@@ -487,6 +487,7 @@ main {
     justify-content: center;
     align-items: center;
     gap: 30px;
+    padding: 20px;
 }
 
 .modal__action__button {
@@ -505,6 +506,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    padding: 10px;
+    padding-left: 20px;
 }
 
 .modal__img img{
@@ -519,7 +522,7 @@ main {
     align-items: flex-start;
     grid-column: 2;
     grid-row: 2;
-    padding-left: 20px;
+    padding: 10px;
     overflow-y: auto;
     max-height: 100%;
 }
