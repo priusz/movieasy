@@ -1,5 +1,5 @@
-<section class="modal__card {{ $details['onTheList'] ? 'green' : '' }}{{ $details['onTheList'] && $details['favorite'] ? '__red' : '' }}{{ $details['onTheList'] && $details['watchlist'] ? '__blue' : '' }}" id="{{ $details['imdbID'] }}" id="{{ isset($details['imdbID']) ??
-    $additionalData['imdbID'] }}">
+<section class="modal__card {{ $details['onTheList'] ? 'green' : '' }}{{ $details['favorite'] ? '__red' : '' }}{{ $details['watchlist'] ? '__blue' : '' }}"
+         id="modal-{{ $details['imdbID'] }}">
     @if(empty($additionalData))
         <h1 class="modal__h1">Details of {{ $details['Title'] }}</h1>
         <figure class="modal__img">

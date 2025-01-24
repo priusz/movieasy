@@ -1,4 +1,4 @@
-<section class="item__card {{ $result['onTheList'] ? 'green' : '' }}{{ $result['onTheList'] && $result['favorite'] ? '__red' : '' }}{{ $result['onTheList'] && $result['watchlist'] ? '__blue' : '' }}" id="{{ $result['imdbID'] }}">
+<section class="item__card {{ $result['onTheList'] ? 'green' : '' }}{{ $result['onTheList'] && $result['favorite'] ? '__red' : '' }}{{ $result['onTheList'] && $result['watchlist'] ? '__blue' : '' }}" id="item-{{ $result['imdbID'] }}">
     <figure class="item__image">
         <img
             src="{{ $result['Poster'] !== 'N/A' ? $result['Poster'] : Vite::asset('resources/images/no-poster.png') }}"

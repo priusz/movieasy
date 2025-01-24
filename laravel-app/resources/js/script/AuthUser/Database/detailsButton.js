@@ -5,7 +5,8 @@ export default function detailsButton() {
 
         link.addEventListener('click', event => {
             event.preventDefault();
-            const imdbID = link.getAttribute("data-id");
+            let imdbID = link.getAttribute("data-id");
+            imdbID = imdbID.split('-').pop();
             const season = link.getAttribute("data-season") ?? 0;
             const episode = link.getAttribute("data-episode") ?? 0;
 

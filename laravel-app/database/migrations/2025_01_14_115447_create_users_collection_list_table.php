@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('userID')->constrained('users')->onDelete('cascade');
             $table->string('imdbID');
             $table->string('type');
-            $table->integer('season')->nullable();
-            $table->integer('episode')->nullable();
+            $table->integer('season');
+            $table->integer('episode');
             $table->boolean('favorite')->default(false);
             $table->boolean('watchlist')->default(false);
         });

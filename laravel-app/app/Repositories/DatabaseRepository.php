@@ -153,6 +153,7 @@ class DatabaseRepository
 
     public function getDetails(string $id, string $season, string $episode): array
     {
+
         $client = new Client();
         $url = env('OMDB_API_URL');
         $queryParams = [];
@@ -189,7 +190,13 @@ class DatabaseRepository
 
         $fetchResult = json_decode($response->getBody(), true);
 
-        $fetchResult = $this->collectionService->addPersonalData($fetchResult);
+        if ($season == '0' || $episode == '0') {
+            $fetchResult['imdbID'] = $id;
+        }
+
+//        dd($fetchResult, $season, $episode);
+
+        $fetchResult = $this->collectionService->addPersonalData($fetchResult, $season, $episode);
 
         return $fetchResult;
     }

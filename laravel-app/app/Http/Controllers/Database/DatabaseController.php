@@ -50,6 +50,9 @@ class DatabaseController
         session::put('currentPage', 1);
         session::put('maxPage', 1);
 
+        $season = 0;
+        $episode = 0;
+
         $fetchResult = $this->databaseService->getFetchResult($filters);
 
         if ($fetchResult['Response'] == 'False') {
@@ -64,7 +67,7 @@ class DatabaseController
 
         if (!isset($fetchResult['totalResults'])) {
 
-            $fetchResult = $this->collectionService->addPersonalData($fetchResult);
+            $fetchResult = $this->collectionService->addPersonalData($fetchResult, $season, $episode);
 
             session(['allResults' => [$fetchResult]]);
 
@@ -79,7 +82,9 @@ class DatabaseController
 
         if ($fetchResult['totalResults'] <= 10) {
 
-            $fetchResult['Search'] = array_map([$this->collectionService, 'addPersonalData'], $fetchResult['Search']);
+            $fetchResult['Search'] = array_map(function ($item) use ($season, $episode) {
+                return $this->collectionService->addPersonalData($item, $season, $episode);
+            }, $fetchResult['Search']);
 
             $fetchResult['Search'] = [$fetchResult['Search']];
 
@@ -98,9 +103,9 @@ class DatabaseController
         $allResult = $this->databaseService->fetchAll($filters, $fetchResult);
 
         $allResult['Search'][session::get('currentPage') - 1] =
-            array_map([$this->collectionService, 'addPersonalData'], $allResult['Search'][session::get('currentPage') - 1]);
-
-//        dd($allResult);
+            array_map(function ($item) use ($season, $episode) {
+                return $this->collectionService->addPersonalData($item, $season, $episode);
+            }, $allResult['Search'][session::get('currentPage') - 1]);
 
         session(['allResults' => $allResult,
             'actualResults' => $allResult,
@@ -201,11 +206,14 @@ class DatabaseController
     }
 
     public function getDetails(string $id, string $season, string $episode) : View {
+
         $additionalData = ($season != '0' && $episode == '0')
             ? $this->databaseService->getDetails($id, 0, 0)
             : [];
 
         $details = $this->databaseService->getDetails($id, $season, $episode);
+
+//        dd($details);
 
         return view('database.item.details')->with(['details' => $details,
             'additionalData' => $additionalData,

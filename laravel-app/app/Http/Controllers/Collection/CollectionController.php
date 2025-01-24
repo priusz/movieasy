@@ -16,7 +16,7 @@ class CollectionController
         $this->collectionService = $collectionService;
     }
 
-    public function updateItem(string $target, string $id) {
+    public function updateItem(string $target, string $id, string $season, string $episode) {
 
         if (count(session('allResults')) == 1) {
 
@@ -35,7 +35,7 @@ class CollectionController
         $type = $result['Type'];
 
         try {
-            $success = $this->collectionService->updateItem($target, $id, $type);
+            $success = $this->collectionService->updateItem($target, $id, $type, $season, $episode);
 
             if ($success) {
 

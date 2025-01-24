@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/details/{id}/{season}/{episode}', [DatabaseController::class, 'getDetails'])
         ->name('details');
 
-    Route::get('/update/item/{target}/{itemId}', [CollectionController::class, 'updateItem'])
+    Route::get('/update/item/{target}/{itemId}/{season}/{episode}', [CollectionController::class, 'updateItem'])
         ->name('updateItem');
 
 });
