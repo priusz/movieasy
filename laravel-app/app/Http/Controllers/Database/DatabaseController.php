@@ -202,12 +202,10 @@ class DatabaseController
 
     public function getDetails(string $id, string $season, string $episode) : View {
         $additionalData = ($season != '0' && $episode == '0')
-            ? databaseService::getDetails($id, 0, 0)
+            ? $this->databaseService->getDetails($id, 0, 0)
             : [];
 
-        $details = databaseService::getDetails($id, $season, $episode);
-
-//        dd($season, $additionalData, $details);
+        $details = $this->databaseService->getDetails($id, $season, $episode);
 
         return view('database.item.details')->with(['details' => $details,
             'additionalData' => $additionalData,

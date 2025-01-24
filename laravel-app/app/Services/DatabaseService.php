@@ -37,9 +37,9 @@ class DatabaseService
         $this->databaseRepository->getSortedData($value);
     }
 
-    public static function getDetails(string $id, string $season, string $episode) : array
+    public function getDetails(string $id, string $season, string $episode) : array
     {
-        $result = databaseRepository::getDetails($id, $season, $episode);
+        $result = $this->databaseRepository->getDetails($id, $season, $episode);
 
         return $result;
     }

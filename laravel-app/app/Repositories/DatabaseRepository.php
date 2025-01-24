@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\DBConnection\Connection;
+use App\Services\CollectionService;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use PDO;
@@ -10,12 +11,12 @@ use PDO;
 class DatabaseRepository
 {
     protected PDO $pdo;
-    protected CollectionRepository $collectionRepository;
+    protected CollectionService $collectionService;
 
-    public function __construct(CollectionRepository $collectionRepository)
+    public function __construct(CollectionService $collectionService)
     {
         $this->pdo = Connection::connect();
-        $this->collectionRepository = $collectionRepository;
+        $this->collectionService = $collectionService;
     }
 
     public function getFetchResult(array $filters): array
@@ -150,7 +151,7 @@ class DatabaseRepository
         return str_contains($value, 'asc') ? 'asc' : 'desc';
     }
 
-    public static function getDetails(string $id, string $season, string $episode): array
+    public function getDetails(string $id, string $season, string $episode): array
     {
         $client = new Client();
         $url = env('OMDB_API_URL');
@@ -187,6 +188,8 @@ class DatabaseRepository
         ]);
 
         $fetchResult = json_decode($response->getBody(), true);
+
+        $fetchResult = $this->collectionService->addPersonalData($fetchResult);
 
         return $fetchResult;
     }
