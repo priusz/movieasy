@@ -2,7 +2,7 @@ import detailsButton from "./detailsButton.js";
 
 export default function itemActionButton() {
 
-    const actionButtons = document.querySelectorAll('.item__action__button:not([data-listened])');
+    const actionButtons = document.querySelectorAll('.item__action__button:not([data-listened]), .modal__action__button:not([data-listened])');
 
     actionButtons.forEach(action => {
 
@@ -18,8 +18,11 @@ export default function itemActionButton() {
             const season = action.getAttribute('data-season') ?? 0;
             const episode = action.getAttribute('data-episode') ?? 0;
 
-            if (target === 'item-my-list' || target === 'item-favorite' || 'item-watchlist') fetchItemUpdate(target, itemId, season, episode);
-            else if (target === 'modal-my-list' || target === 'modal-favorite' || target === 'modal-watchlist') fetchModalUpdate(target, itemId, season, episode); //item fetch???
+            if (target === 'item-my-list' || target === 'item-favorite' || target === 'item-watchlist') fetchItemUpdate(target, itemId, season, episode);
+            else if (target === 'modal-my-list' || target === 'modal-favorite' || target === 'modal-watchlist') {
+                handleFetchModalRefreshItem(target, itemId, season, episode)
+                    .catch(error => console.error('Error during requests:', error));
+            }
 
         });
     });
@@ -33,20 +36,47 @@ function fetchItemUpdate(target, itemId, season, episode) {
             document.getElementById(`item-${itemId}`).outerHTML = html;
             attachDynamicListeners();
         })
-        .catch(error => console.error('Error update the collection: ', error));
+        .catch(error => console.error('Error update the item: ', error));
 
 }
 
-function fetchModalUpdate(itemId) {
+async function fetchRefreshItem(target, itemId, season, episode) {
 
-    fetch(`/update/modal/${target}/${itemId}`)
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById(`${itemId}`).outerHTML = html;
-            attachDynamicListeners();
-        })
-        .catch(error => console.error('Error update the collection: ', error));
+    try {
+        const response = await fetch(`/refresh/item/${target}/${itemId}/${season}/${episode}`);
+        const html = await response.text();
+        document.getElementById(`item-${itemId}`).outerHTML = html;
+        attachDynamicListeners();
+    } catch (error) {
+        console.error('Error refresh the item: ', error);
+    }
 
+}
+
+async function fetchModalUpdate(target, itemId, season, episode) {
+
+    try {
+        const response = await fetch(`/update/modal/${target}/${itemId}/${season}/${episode}`);
+        const html = await response.text();
+        document.getElementById(`modal-${itemId}`).outerHTML = html;
+        attachDynamicListeners();
+    } catch (error) {
+        console.error('Error update the modal: ', error)
+    }
+
+}
+
+async function handleFetchModalRefreshItem(target, itemId, season, episode) {
+    try {
+        await fetchModalUpdate(target, itemId, season, episode);
+        await fetchRefreshItem(target, itemId, season, episode);
+    } catch (error) {
+        console.error('Error during requests:', error);
+    }
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function attachDynamicListeners() {

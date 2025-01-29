@@ -1,3 +1,5 @@
+import itemActionButton from "./itemActionButton.js";
+
 export default function detailsButton() {
     document.querySelectorAll(".detailsButton:not([data-listened])").forEach(link=> {
 
@@ -16,6 +18,7 @@ export default function detailsButton() {
                     document.querySelector('#modalBody').innerHTML = html;
 
                     detailsButton();
+                    itemActionButton();
 
                     const modal = document.querySelector('#movieDetailsModal');
                     modal.style.display = 'flex';
