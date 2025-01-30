@@ -337,7 +337,7 @@ main {
     padding: var(--PADDING);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(1, 250px);
+    grid-template-rows: repeat(1, 270px);
     gap: 10px;
 }
 
@@ -346,7 +346,7 @@ main {
     padding: var(--PADDING);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 250px);
+    grid-template-rows: repeat(2, 270px);
     gap: 10px;
 }
 

@@ -114,7 +114,7 @@ class CollectionController
 
             $result = session('allResults')[0] ?? [];
 
-            if ($type === 'movies' || $type === 'series') {
+            if ($type === 'movie' || $type === 'series') {
 
                 $refresh = isset($result['imdbID']) && $result['imdbID'] === $id
                             && $result['Type'] === $type;
