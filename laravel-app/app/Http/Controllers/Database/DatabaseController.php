@@ -127,6 +127,9 @@ class DatabaseController
         $sort = $request->input('sort');
         $poster = $request->has('poster');
 
+        $season = 0;
+        $episode = 0;
+
         if (empty($sort) && !$poster)
         {
             session(['actualResults' => session::get('allResults')]);
@@ -151,7 +154,12 @@ class DatabaseController
         session::put('maxPage', ceil(session::get('actualResults')['totalResults'] / 10) );
 
         $actualResults = session::get('actualResults');
-        $actualResults['Search'][session::get('currentPage') - 1] = array_map([$this->collectionService, 'addPersonalData'], $actualResults['Search'][session::get('currentPage') - 1]);
+
+        $actualResults['Search'][session::get('currentPage') - 1] =
+            array_map(function ($item) use ($season, $episode) {
+                return $this->collectionService->addPersonalData($item, $season, $episode);
+            }, $actualResults['Search'][session::get('currentPage') - 1]);
+
         session(['actualResults' => $actualResults]);
 
         return view('database.database')->with([
@@ -193,8 +201,16 @@ class DatabaseController
         $currentPage = $request->input('currentPage');
         session(['currentPage' => $currentPage]);
 
+        $season = 0;
+        $episode = 0;
+
         $actualResults = session::get('actualResults');
-        $actualResults['Search'][session::get('currentPage') - 1] = array_map([$this->collectionService, 'addPersonalData'], $actualResults['Search'][session::get('currentPage') - 1]);
+
+        $actualResults['Search'][session::get('currentPage') - 1] =
+            array_map(function ($item) use ($season, $episode) {
+                return $this->collectionService->addPersonalData($item, $season, $episode);
+            }, $actualResults['Search'][session::get('currentPage') - 1]);
+
         session(['actualResults' => $actualResults]);
 
         return view('database.results')->with([

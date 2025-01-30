@@ -1,5 +1,5 @@
 <p><span class="modal__data__type">Title: </span>{{ $details['Title'] ?? 'Unknown title' }}</p>
-<p><span class="modal__data__type">Type: </span>{{ $details['Type'] ?? 'Unknown type' }}</p>
+<p><span class="modal__data__type" id="modal-data-type" data-value="{{ $details['Type'] ?? 'Unknown type' }}">Type: </span>{{ $details['Type'] ?? 'Unknown type' }}</p>
     @if($details['totalSeasons'] == 1)
         <p><span class="modal__data__type">Total season: </span>1</p>
     @elseif($details['totalSeasons'] == 'N/A' || $details['totalSeasons'] > 1)

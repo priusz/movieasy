@@ -20,23 +20,28 @@ class CollectionRepository
     {
         $userId = auth()->id();
 
+//        dd($target, $id, $type, $season, $episode);
+
         try {
-            $query = "SELECT * FROM users_collection_list WHERE userID = :userID AND imdbID = :imdbID AND season = :season AND episode = :episode";
+            $query = "SELECT * FROM users_collection_list WHERE userID = :userID AND imdbID = :imdbID AND season = :season AND episode = :episode AND type = :type";
             $stmt = $this->pdo->prepare($query);
 
             $stmt->bindParam(':userID', $userId);
             $stmt->bindParam(':imdbID', $id);
             $stmt->bindParam(':season', $season);
             $stmt->bindParam(':episode', $episode);
+            $stmt->bindParam(':type', $type);
 
             $stmt->execute();
             $result = $stmt->fetch();
 
             $onTheList = !empty($result);
 
-            if ($target === 'item-my-list') return $this->switchItemMyList($onTheList, $userId, $id, $type, $season, $episode);
-            else if ($target === 'item-favorite') return $this->switchItemFavorite($userId, $id, $season, $episode);
-            else if ($target === 'item-watchlist') return $this->switchItemWatchlist($userId, $id, $season, $episode);
+//            dd($onTheList, $result, $target, $type, $season, $episode);
+
+            if ($target === 'item-my-list' || $target === 'modal-my-list') return $this->switchItemMyList($onTheList, $userId, $id, $type, $season, $episode);
+            else if ($target === 'item-favorite' || $target === 'modal-favorite') return $this->switchItemFavorite($userId, $id, $type, $season, $episode);
+            else if ($target === 'item-watchlist' || $target === 'modal-watchlist') return $this->switchItemWatchlist($userId, $id, $type, $season, $episode);
 
         } catch (PDOException $e) {
             Log::error('Error toggling list status: ' . $e->getMessage(), [
@@ -52,14 +57,18 @@ class CollectionRepository
     }
 
     private function switchItemMyList(bool $onTheList, string $userId, string $id, string $type, string $season, string $episode) : bool {
+
+//        dd($onTheList, $userId, $id, $type, $season, $episode);
+
         if ($onTheList) {
-            $deleteQuery = "DELETE FROM users_collection_list WHERE userID = :userID AND imdbID = :imdbID AND season = :season AND episode = :episode";
+            $deleteQuery = "DELETE FROM users_collection_list WHERE userID = :userID AND imdbID = :imdbID AND season = :season AND episode = :episode AND type = :type";
             $deleteStmt = $this->pdo->prepare($deleteQuery);
 
             $deleteStmt->bindParam(':userID', $userId);
             $deleteStmt->bindParam(':imdbID', $id);
             $deleteStmt->bindParam(':season', $season);
             $deleteStmt->bindParam(':episode', $episode);
+            $deleteStmt->bindParam(':type', $type);
 
             if ($deleteStmt->execute()) return true;
 
@@ -79,15 +88,16 @@ class CollectionRepository
         return false;
     }
 
-    private function switchItemFavorite(string $userId, string $id, string $season, string $episode) : bool {
+    private function switchItemFavorite(string $userId, string $id, string $type, string $season, string $episode) : bool {
         try {
-            $query = "UPDATE users_collection_list SET favorite = NOT favorite WHERE userID = :userID AND imdbID = :imdbID AND season = :season AND episode = :episode";
+            $query = "UPDATE users_collection_list SET favorite = NOT favorite WHERE userID = :userID AND imdbID = :imdbID AND season = :season AND episode = :episode AND type = :type";
             $stmt = $this->pdo->prepare($query);
 
             $stmt->bindParam(':userID', $userId);
             $stmt->bindParam(':imdbID', $id);
             $stmt->bindParam(':season', $season);
             $stmt->bindParam(':episode', $episode);
+            $stmt->bindParam(':type', $type);
 
             $success = $stmt->execute();
 
@@ -103,15 +113,16 @@ class CollectionRepository
         }
     }
 
-    private function switchItemWatchlist(string $userId, string $id, string $season, string $episode) : bool {
+    private function switchItemWatchlist(string $userId, string $id, string $type, string $season, string $episode) : bool {
         try {
-            $query = "UPDATE users_collection_list SET watchlist = NOT watchlist WHERE userID = :userID AND imdbID = :imdbID AND season = :season AND episode = :episode";
+            $query = "UPDATE users_collection_list SET watchlist = NOT watchlist WHERE userID = :userID AND imdbID = :imdbID AND season = :season AND episode = :episode AND type = :type";
             $stmt = $this->pdo->prepare($query);
 
             $stmt->bindParam(':userID', $userId);
             $stmt->bindParam(':imdbID', $id);
             $stmt->bindParam(':season', $season);
             $stmt->bindParam(':episode', $episode);
+            $stmt->bindParam(':type', $type);
 
             $success = $stmt->execute();
 
@@ -131,7 +142,7 @@ class CollectionRepository
 
 //        dd($item, $season, $episode);
 
-        $id = $item['imdbID'];
+        $id = $item['seriesID'] ?? $item['imdbID'];
         $userId = auth()->id();
 
         try {
