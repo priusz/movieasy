@@ -1,5 +1,5 @@
 <section class="modal__card {{ $details['onTheList'] ? 'green' : '' }}{{ $details['favorite'] ? '__red' : '' }}{{ $details['watchlist'] ? '__blue' : '' }}"
-         id="modal-{{ $details['imdbID'] }}">
+         id="modal-{{ isset($details['Type']) && $details['Type'] === 'episode' ? $details['seriesID'] : $details['imdbID'] }}">
     @if(empty($additionalData))
         <h1 class="modal__h1">Details of {{ $details['Title'] }}</h1>
         <figure class="modal__img">
@@ -40,14 +40,14 @@
     <p class="modal__action">
         <a class="modal__action__button" data-action-name="modal-my-list"
            title="{{ $details['onTheList'] ? 'Delete from my list' : 'Add to my list' }}"
-           data-id='{{ $details['imdbID'] }}' href="#">{{ $details['onTheList'] ? '✅' : '➕' }} My list</a>
+           data-id='{{ isset($details['Type']) && $details['Type'] === 'episode' ? $details['seriesID'] : $details['imdbID'] }}' href="#">{{ $details['onTheList'] ? '✅' : '➕' }} My list</a>
         @if($details['onTheList'])
             <a class="modal__action__button" data-action-name="modal-favorite"
                title="{{ $details['favorite'] ? 'Delete from favorites' : 'Add to favorites' }}"
-               data-id='{{ $details['imdbID'] }}' href="#">{{ $details['favorite'] ? '❤️' : '➕' }} Favorites</a>
+               data-id='{{ isset($details['Type']) && $details['Type'] === 'episode' ? $details['seriesID'] : $details['imdbID'] }}' href="#">{{ $details['favorite'] ? '❤️' : '➕' }} Favorites</a>
             <a class="modal__action__button" data-action-name="modal-watchlist"
                title="{{ $details['watchlist'] ? 'Delete from watchlist' : 'Add to watchlist' }}"
-               data-id='{{ $details['imdbID'] }}' href="#">{{ $details['watchlist'] ? '📺' : '➕' }} Watchlist</a>
+               data-id='{{ isset($details['Type']) && $details['Type'] === 'episode' ? $details['seriesID'] : $details['imdbID'] }}' href="#">{{ $details['watchlist'] ? '📺' : '➕' }} Watchlist</a>
         @endif
     </p>
 </section>

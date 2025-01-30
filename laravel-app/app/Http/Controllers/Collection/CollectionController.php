@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Collection;
 
+use App\Http\Controllers\Database\DatabaseController;
 use App\Services\CollectionService;
 use App\Services\DatabaseService;
 use Exception;
@@ -13,10 +14,13 @@ class CollectionController
     protected CollectionService  $collectionService;
     protected DatabaseService $databaseService;
 
-    public function __construct(CollectionService  $collectionService, DatabaseService $databaseService)
+    protected DatabaseController $databaseController;
+
+    public function __construct(CollectionService  $collectionService, DatabaseService $databaseService, DatabaseController $databaseController)
     {
         $this->collectionService = $collectionService;
         $this->databaseService = $databaseService;
+        $this->databaseController = $databaseController;
     }
 
     public function updateItem(string $target, string $id, string $season, string $episode) {
@@ -64,11 +68,13 @@ class CollectionController
 
         $item = $this->databaseService->getDetails($id, $season, $episode);
 
+        $type = $item['Type'] ?? 'season';
+
         $item = $this->collectionService->addPersonalData($item, $season, $episode);
 
-        $type = $item['Type'];
-
         try {
+
+//            dd($target, $id, $type, $season, $episode);
 
             $success = $this->collectionService->updateItem($target, $id, $type, $season, $episode);
 
@@ -84,7 +90,12 @@ class CollectionController
                 else if ($target === 'modal-favorite') $item['favorite'] = !$item['favorite'];
                 else if ($target === 'modal-watchlist') $item['watchlist'] = !$item['watchlist'];
 
-                return view('database.item.details')->with('details', $item);
+//                dd($item);
+
+                $view = $this->databaseController->getDetails($id, $season, $episode);
+
+                return $view;
+
             } else {
                 return redirect()->back()->with('error', 'Something went wrong during update the modal! 😕');
             }
@@ -97,19 +108,25 @@ class CollectionController
         }
     }
 
-    public function refreshItem(string $target, string $id, string $season, string $episode) {
+    public function refreshItem(string $target, string $id, string $type) {
 
         if (count(session('allResults')) == 1) {
 
             $result = session('allResults')[0] ?? [];
-            $refresh = isset($result['imdbID']) && $result['imdbID'] === $id;
+
+            if ($type === 'movies' || $type === 'series') {
+
+                $refresh = isset($result['imdbID']) && $result['imdbID'] === $id
+                            && $result['Type'] === $type;
+
+            }
 
         } else {
 
             $currentPageData = session('actualResults')['Search'][session('currentPage') - 1];
 
-            $result = array_values(array_filter($currentPageData, function ($item) use ($id) {
-                return $item['imdbID'] == $id;
+            $result = array_values(array_filter($currentPageData, function ($item) use ($id, $type) {
+                return $item['imdbID'] === $id && $item['Type'] === $type;
             }))[0] ?? [];
 
             $refresh = !empty($result);
@@ -131,6 +148,8 @@ class CollectionController
 
             }
         }
+
+        return 'noRefresh';
     }
 
     private function updateItemInTheSession (string $target, string $id, array $result) : array {

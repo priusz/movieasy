@@ -1,6 +1,6 @@
 <p><span class="modal__data__type">Title: </span>{{ $additionalData['Title'] ?? 'Unknown title' }}</p>
-<p><span class="modal__data__type">Type: </span>Season</p>
-<p><span class="modal__data__type">Season: </span>{{ $season }} (Total: {{$details['totalSeasons']}})</p>
+<p><span class="modal__data__type" id="modal-data-type" data-value="season">Type: </span>Season</p>
+<p><span class="modal__data__type" id="modal-data-season" data-value="{{ $season }}">Season: </span>{{ $season }} (Total: {{$details['totalSeasons']}})</p>
 <p><span class="modal__data__type">Genre: </span>{{ $additionalData['Genre'] ?? 'Unknown genre' }}</p>
 <p><span class="modal__data__type">Director: </span>{{ $additionalData['Director'] ?? 'Unknown director' }}</p>
 <p><span class="modal__data__type">Writer: </span>{{ $additionalData['Writer'] ?? 'Unknown writer' }}</p>

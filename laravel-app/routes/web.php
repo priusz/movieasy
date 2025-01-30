@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/update/modal/{target}/{itemId}/{season}/{episode}', [CollectionController::class, 'updateModal'])
         ->name('updateModal');
 
-    Route::get('/refresh/item/{target}/{itemId}/{season}/{episode}', [CollectionController::class, 'refreshItem'])
+    Route::get('/refresh/item/{target}/{itemId}/{type}/{season}/{episode}', [CollectionController::class, 'refreshItem'])
         ->name('refreshItem');
 
 });

@@ -1,4 +1,5 @@
 import itemActionButton from "./itemActionButton.js";
+import setAttributes from "./setAttributes.js";
 
 export default function detailsButton() {
     document.querySelectorAll(".detailsButton:not([data-listened])").forEach(link=> {
@@ -17,8 +18,9 @@ export default function detailsButton() {
                 .then(html => {
                     document.querySelector('#modalBody').innerHTML = html;
 
-                    detailsButton();
-                    itemActionButton();
+                    setAttributes();
+
+                    attachDynamicListeners();
 
                     const modal = document.querySelector('#movieDetailsModal');
                     modal.style.display = 'flex';
@@ -38,4 +40,9 @@ export default function detailsButton() {
             modal.style.display = 'none';
         }
     });
+}
+
+function attachDynamicListeners() {
+    detailsButton();
+    itemActionButton();
 }

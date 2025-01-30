@@ -1,4 +1,5 @@
 import detailsButton from "./detailsButton.js";
+import setAttributes from "./setAttributes.js";
 
 export default function itemActionButton() {
 
@@ -43,11 +44,20 @@ function fetchItemUpdate(target, itemId, season, episode) {
 async function fetchRefreshItem(target, itemId, season, episode) {
 
     try {
-        const response = await fetch(`/refresh/item/${target}/${itemId}/${season}/${episode}`);
+
+        const type = document.getElementById('modal-data-type').getAttribute('data-value');
+        const response = await fetch(`/refresh/item/${target}/${itemId}/${type}/${season}/${episode}`);
         const html = await response.text();
+
+        if (html.trim() === 'noRefresh') {
+            return;
+        }
+
         document.getElementById(`item-${itemId}`).outerHTML = html;
         attachDynamicListeners();
+
     } catch (error) {
+
         console.error('Error refresh the item: ', error);
     }
 
@@ -56,27 +66,34 @@ async function fetchRefreshItem(target, itemId, season, episode) {
 async function fetchModalUpdate(target, itemId, season, episode) {
 
     try {
+
         const response = await fetch(`/update/modal/${target}/${itemId}/${season}/${episode}`);
         const html = await response.text();
+
         document.getElementById(`modal-${itemId}`).outerHTML = html;
+
+        setAttributes();
+
         attachDynamicListeners();
+
     } catch (error) {
+
         console.error('Error update the modal: ', error)
+
     }
 
 }
 
 async function handleFetchModalRefreshItem(target, itemId, season, episode) {
     try {
+
         await fetchModalUpdate(target, itemId, season, episode);
         await fetchRefreshItem(target, itemId, season, episode);
+
     } catch (error) {
+
         console.error('Error during requests:', error);
     }
-}
-
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function attachDynamicListeners() {
