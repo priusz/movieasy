@@ -23,6 +23,10 @@ class CollectionController
         $this->databaseController = $databaseController;
     }
 
+    public function getCollectionPage(): View {
+        return view('collection.collection');
+    }
+
     public function updateItem(string $target, string $id, string $season, string $episode) {
 
         if (count(session('allResults')) == 1) {
@@ -74,8 +78,6 @@ class CollectionController
 
         try {
 
-//            dd($target, $id, $type, $season, $episode);
-
             $success = $this->collectionService->updateItem($target, $id, $type, $season, $episode);
 
             if ($success) {
@@ -89,8 +91,6 @@ class CollectionController
                 }
                 else if ($target === 'modal-favorite') $item['favorite'] = !$item['favorite'];
                 else if ($target === 'modal-watchlist') $item['watchlist'] = !$item['watchlist'];
-
-//                dd($item);
 
                 $view = $this->databaseController->getDetails($id, $season, $episode);
 

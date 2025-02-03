@@ -48,20 +48,23 @@ Route::middleware('auth')->group(function () {
     Route::post('database/sort', [DatabaseController::class, 'getDatabasePageWithSortedData'])
         ->name('database-sort');
 
-    Route::post('/update-page', [DatabaseController::class, 'updatePage'])
+    Route::post('update-page', [DatabaseController::class, 'updatePage'])
         ->name('update-page');
 
-    Route::get('/details/{id}/{season}/{episode}', [DatabaseController::class, 'getDetails'])
+    Route::get('details/{id}/{season}/{episode}', [DatabaseController::class, 'getDetails'])
         ->name('details');
 
-    Route::get('/update/item/{target}/{itemId}/{season}/{episode}', [CollectionController::class, 'updateItem'])
+    Route::get('update/item/{target}/{itemId}/{season}/{episode}', [CollectionController::class, 'updateItem'])
         ->name('updateItem');
 
-    Route::get('/update/modal/{target}/{itemId}/{season}/{episode}', [CollectionController::class, 'updateModal'])
+    Route::get('update/modal/{target}/{itemId}/{season}/{episode}', [CollectionController::class, 'updateModal'])
         ->name('updateModal');
 
-    Route::get('/refresh/item/{target}/{itemId}/{type}/{season}/{episode}', [CollectionController::class, 'refreshItem'])
+    Route::get('refresh/item/{target}/{itemId}/{type}/{season}/{episode}', [CollectionController::class, 'refreshItem'])
         ->name('refreshItem');
+
+    Route::get('collection', [CollectionController::class, 'getCollectionPage'])
+        ->name('collection');
 
 });
 

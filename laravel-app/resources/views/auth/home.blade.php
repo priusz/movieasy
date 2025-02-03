@@ -40,7 +40,7 @@
             </section>
             <section class="recommend__section">
                 <h2 class="recommend__h2">I'll take a look at my own
-                    <a class="recommend__a" href={{ route('home') }}>Collection</a>
+                    <a class="recommend__a" href={{ route('collection') }}>Collection</a>
                 </h2>
             </section>
         </article>
