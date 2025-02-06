@@ -43,26 +43,64 @@
                 </p>
             </fieldset>
             <fieldset>
-                <legend>Filter type field</legend>
+                <legend>Filter list type field</legend>
                 <p>
-                    <input type="radio" name="type" id="favorite" value="favorite"/>
+                    <input type="radio" name="list-type" id="all" value="all"/>
+                    <label for="all">All</label>
+                </p>
+                <p>
+                    <input type="radio" name="list-type" id="favorite" value="favorite"/>
                     <label for="favorite">Favorite</label>
                 </p>
                 <p>
-                    <input type="radio" name="type" id="watchlist" value="watchlist"/>
+                    <input type="radio" name="list-type" id="watchlist" value="watchlist"/>
                     <label for="watchlist">Watchlist</label>
                 </p>
+                <p>
+                    <input type="radio" name="list-type" id="both" value="both"/>
+                    <label for="both">Favorite & Watchlist</label>
+                </p>
+
+            </fieldset>
+            <fieldset>
+                <legend>Filter type field</legend>
                 <p>
                     <input type="radio" name="type" id="all" value="all"/>
                     <label for="all">All</label>
                 </p>
+                <p>
+                    <input type="radio" name="type" id="movie" value="movie"/>
+                    <label for="movie">Movie</label>
+                </p>
+                <p>
+                    <input type="radio" name="type" id="series" value="series"/>
+                    <label for="series">Series</label>
+                </p>
+                <p>
+                    <input type="radio" name="type" id="season" value="season"/>
+                    <label for="season">Season</label>
+                </p>
+                <p>
+                    <input type="radio" name="type" id="episode" value="episode"/>
+                    <label for="episode">Episode</label>
+                </p>
             </fieldset>
+            <p>
+                <a href="#">Title A-Z</a>
+            </p>
         </form>
         <p class="search__buttons">
-            <a class="form__button" href="{{ route('home') }}">Back</a>
-            <a class="form__button" href="{{ route('database') }}">Clear</a>
-            <a class="form__button" href="#" id="search-button">Search</a>
+            <a class="form__button" href="{{ route('home') }}">Home</a>
+            <a class="form__button" href="{{ route('collection') }}">Clear</a>
         </p>
+    </article>
+    <article>
+        <h1>All:</h1>
+        @if(!empty($items))
+            @include('collection.results')
+        @else
+            <p>Empty collection! 😱 Let's add some items before you visit here! </p>
+        @endif
     </article>
 </main>
 <footer>

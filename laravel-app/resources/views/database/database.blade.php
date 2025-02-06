@@ -99,7 +99,7 @@
             </fieldset>
         </form>
         <p class="search__buttons">
-            <a class="form__button" href="{{ route('home') }}">Back</a>
+            <a class="form__button" href="{{ route('home') }}">Home</a>
             <a class="form__button" href="{{ route('database') }}">Clear</a>
             <a class="form__button" href="#" id="search-button">Search</a>
         </p>
