@@ -194,11 +194,10 @@ class DatabaseRepository
             $fetchResult['imdbID'] = $id;
         }
 
-//        dd($fetchResult, $season, $episode);
-
         $fetchResult = $this->collectionService->addPersonalData($fetchResult, $season, $episode);
 
         return $fetchResult;
     }
+
 }
 

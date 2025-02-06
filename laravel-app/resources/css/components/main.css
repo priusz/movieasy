@@ -202,6 +202,7 @@ main {
     box-shadow: 0 0 10px var(--BORDER-COLOR);
     padding: 0.5rem;
     background-color: rgba(255, 255, 255, 0.5);
+    border-radius: var(--BORDER-RADIUS);
 }
 
 /* DATABASE PAGE */
@@ -443,7 +444,6 @@ main {
     max-height: 600px;
     max-width: 1000px;
     position: relative;
-    overflow-y: scroll;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -506,8 +506,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 10px;
-    padding-left: 20px;
+    padding: 10px 10px 10px 20px;
 }
 
 .modal__img img{

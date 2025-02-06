@@ -223,17 +223,22 @@ class DatabaseController
 
     public function getDetails(string $id, string $season, string $episode) : View {
 
+        $result = $this->getDetailsData($id, $season, $episode);
+
+        return view('database.item.details')->with(['details' => $result[0],
+            'additionalData' => $result[1],
+            'season' => $season,]);
+    }
+
+    public function getDetailsData(string $id, string $season, string $episode) : array {
+
         $additionalData = ($season != '0' && $episode == '0')
             ? $this->databaseService->getDetails($id, 0, 0)
             : [];
 
         $details = $this->databaseService->getDetails($id, $season, $episode);
 
-//        dd($details);
-
-        return view('database.item.details')->with(['details' => $details,
-            'additionalData' => $additionalData,
-            'season' => $season,]);
+        return [$details, $additionalData];
     }
 
 }

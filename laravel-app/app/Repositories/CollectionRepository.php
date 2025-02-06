@@ -186,4 +186,32 @@ class CollectionRepository
         }
     }
 
+    public function getItemsOnTheList() : array {
+
+        $userId = auth()->id();
+
+        try {
+            $query = "SELECT * FROM users_collection_list WHERE userID = :userID";
+            $stmt = $this->pdo->prepare($query);
+
+            $stmt->bindParam(':userID', $userId);
+
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            return $result;
+
+        } catch (PDOException $e) {
+
+            Log::error('Error checking list status: ' . $e->getMessage(), [
+                'exception' => $e,
+                'itemID' => $id,
+            ]);
+
+        }
+
+        return [];
+
+    }
+
 }

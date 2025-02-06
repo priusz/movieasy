@@ -7,13 +7,13 @@ use App\Services\CollectionService;
 use App\Services\DatabaseService;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class CollectionController
 {
     protected CollectionService  $collectionService;
     protected DatabaseService $databaseService;
-
     protected DatabaseController $databaseController;
 
     public function __construct(CollectionService  $collectionService, DatabaseService $databaseService, DatabaseController $databaseController)
@@ -21,6 +21,24 @@ class CollectionController
         $this->collectionService = $collectionService;
         $this->databaseService = $databaseService;
         $this->databaseController = $databaseController;
+    }
+
+    public function getCollectionPage(): View {
+
+        $itemsOnTheList = $this->collectionService->getItemsOnTheList();
+
+        $items = [];
+
+        foreach ($itemsOnTheList as $item) {
+
+            $items[] = $this->databaseController->getDetailsData($item['imdbID'], $item['season'], $item['episode']);
+
+        }
+
+        session::put('allCollection', $items);
+
+        return view('collection.collection')->with('items', $items);
+
     }
 
     public function updateItem(string $target, string $id, string $season, string $episode) {
@@ -74,8 +92,6 @@ class CollectionController
 
         try {
 
-//            dd($target, $id, $type, $season, $episode);
-
             $success = $this->collectionService->updateItem($target, $id, $type, $season, $episode);
 
             if ($success) {
@@ -89,8 +105,6 @@ class CollectionController
                 }
                 else if ($target === 'modal-favorite') $item['favorite'] = !$item['favorite'];
                 else if ($target === 'modal-watchlist') $item['watchlist'] = !$item['watchlist'];
-
-//                dd($item);
 
                 $view = $this->databaseController->getDetails($id, $season, $episode);
 

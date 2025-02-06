@@ -27,4 +27,11 @@ class CollectionService
         return $result;
     }
 
+    public function getItemsOnTheList() : array
+    {
+        $result = $this->collectionRepository->getItemsOnTheList();
+
+        return $result;
+    }
+
 }
