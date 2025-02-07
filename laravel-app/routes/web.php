@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function () {
     Route::get('collection', [CollectionController::class, 'getCollectionPage'])
         ->name('collection');
 
+    Route::get('collection/filter/{type}/{value}', [CollectionController::class, 'getFilteredItems'])
+        ->name('collectionFilter');
+
 });
 
 
