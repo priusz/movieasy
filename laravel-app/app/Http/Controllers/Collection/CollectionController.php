@@ -36,6 +36,7 @@ class CollectionController
         }
 
         session::put('allCollection', $items);
+        session::put('actualCollection', $items);
 
         return view('collection.collection')->with('items', $items);
 
@@ -204,6 +205,32 @@ class CollectionController
         }
 
         return $result;
+
+    }
+
+    public function getFilteredItems(string $type, string $value) : View {
+
+        $collection = session('allCollection');
+
+        if ($value === 'emptyValue') {
+
+            session(['actualCollection' => $collection]);
+
+            return view('collection.results')->with('items', $collection);
+
+        }
+
+        if ($type === 'title-search') {
+
+            $actualItems = array_filter($collection, function ($item) use ($value) {
+                return str_contains(strtolower($item[0]['Title']), strtolower($value));
+            });
+
+            session(['actualCollection' => $actualItems]);
+
+        }
+
+        return view('collection.results')->with('items', session('actualCollection'));
 
     }
 

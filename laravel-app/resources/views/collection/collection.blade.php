@@ -35,29 +35,31 @@
             <fieldset >
                 <legend>Search field</legend>
                 <p>
-                    <label for="title">Title:
-                        @error('title')
-                        <span class="search__span__error">{{ $message }}</span>
-                        @enderror</label>
-                    <input type="text" name="title" id="title">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title"
+                           class="collection-filter" data-type="title-search">
                 </p>
             </fieldset>
             <fieldset>
                 <legend>Filter list type field</legend>
                 <p>
-                    <input type="radio" name="list-type" id="all" value="all"/>
+                    <input type="radio" name="list-type" id="all" value="all"
+                           class="collection-filter" data-type="list-type"/>
                     <label for="all">All</label>
                 </p>
                 <p>
-                    <input type="radio" name="list-type" id="favorite" value="favorite"/>
+                    <input type="radio" name="list-type" id="favorite" value="favorite"
+                           class="collection-filter" data-type="list-type"/>
                     <label for="favorite">Favorite</label>
                 </p>
                 <p>
-                    <input type="radio" name="list-type" id="watchlist" value="watchlist"/>
+                    <input type="radio" name="list-type" id="watchlist" value="watchlist"
+                           class="collection-filter" data-type="list-type"/>
                     <label for="watchlist">Watchlist</label>
                 </p>
                 <p>
-                    <input type="radio" name="list-type" id="both" value="both"/>
+                    <input type="radio" name="list-type" id="both" value="both"
+                           class="collection-filter" data-type="list-type"/>
                     <label for="both">Favorite & Watchlist</label>
                 </p>
 
@@ -65,23 +67,28 @@
             <fieldset>
                 <legend>Filter type field</legend>
                 <p>
-                    <input type="radio" name="type" id="all" value="all"/>
+                    <input type="radio" name="type" id="all" value="all"
+                           class="collection-filter" data-type="item-type"/>
                     <label for="all">All</label>
                 </p>
                 <p>
-                    <input type="radio" name="type" id="movie" value="movie"/>
+                    <input type="radio" name="type" id="movie" value="movie"
+                           class="collection-filter" data-type="item-type"/>
                     <label for="movie">Movie</label>
                 </p>
                 <p>
-                    <input type="radio" name="type" id="series" value="series"/>
+                    <input type="radio" name="type" id="series" value="series"
+                           class="collection-filter" data-type="item-type"/>
                     <label for="series">Series</label>
                 </p>
                 <p>
-                    <input type="radio" name="type" id="season" value="season"/>
+                    <input type="radio" name="type" id="season" value="season"
+                           class="collection-filter" data-type="item-type"/>
                     <label for="season">Season</label>
                 </p>
                 <p>
-                    <input type="radio" name="type" id="episode" value="episode"/>
+                    <input type="radio" name="type" id="episode" value="episode"
+                           class="collection-filter" data-type="item-type"/>
                     <label for="episode">Episode</label>
                 </p>
             </fieldset>
