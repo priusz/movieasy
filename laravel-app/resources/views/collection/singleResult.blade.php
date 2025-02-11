@@ -1,7 +1,7 @@
 <section class="{{ $item[0]['onTheList'] ? 'green' : '' }}{{ $item[0]['favorite'] ? '__red' : '' }}{{ $item[0]['watchlist'] ? '__blue' : '' }}"
          id="modal-{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}">
     @if(empty($item[1]))
-        <h1>Details of {{ $item[0]['Title'] }}</h1>
+        <h1>{{ $item[0]['Title'] }}</h1>
         <figure>
             <img
                 src="{{ $item[0]['Poster'] !== 'N/A' ? $item[0]['Poster'] : Vite::asset('resources/images/no-poster.png') }}"
@@ -12,7 +12,7 @@
             <figcaption>{{ $item[0]['Title'] ?? 'Unknown title' }}</figcaption>
         </figure>
     @else
-        <h1>Details of {{ $item[1]['Title'] . ' ' . $season . ' season'}}</h1>
+        <h1>{{ $item[1]['Title'] . ' ' . $item[0]['Season'] . ' season'}}</h1>
         <figure>
             <img
                 src="{{ $item[1]['Poster'] !== 'N/A' ? $item[1]['Poster'] : Vite::asset('resources/images/no-poster.png') }}"
@@ -27,14 +27,14 @@
     <div>
         @if(isset($item[0]['Type']))
             @if($item[0]['Type'] == 'movie')
-                @include('database.modal.movieModal', ['details' => $item[0]])
+                @include('collection.card.movie', ['details' => $item[0]])
             @elseif($item[0]['Type'] == 'series')
-                @include('database.modal.seriesModal', ['details' => $item[0]])
+                @include('collection.card.series', ['details' => $item[0]])
             @elseif($item[0]['Type'] == 'episode')
-                @include('database.modal.episodeModal', ['details' => $item[0]])
+                @include('collection.card.episode', ['details' => $item[0]])
             @endif
         @else
-            @include('database.modal.seasonModal', ['details' => $item[0], 'additionalData' => $item[1]])
+            @include('collection.card.season', ['details' => $item[0], 'additionalData' => $item[1]])
         @endif
     </div>
     <p>

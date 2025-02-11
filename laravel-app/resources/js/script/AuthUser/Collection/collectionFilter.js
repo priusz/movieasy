@@ -10,23 +10,29 @@ export default function collectionFilter() {
             eventType = 'input';
         }
 
-        button.addEventListener(eventType, (event) => {
+        button.addEventListener(eventType, () => {
 
-            const type = button.getAttribute('data-type');
-
-            const value = event.target.value.trim();
-
-            handleFilter(type, value);
+            handleFilter();
 
         })
     } )
 }
 
-function handleFilter(type, value) {
+function handleFilter() {
 
-    if (value === '') value = 'emptyValue';
+    const titleInput = document.querySelector('input[data-type="title-search"]');
+    const titleValue = titleInput.value.trim() !== '' ? titleInput.value.trim() : 'emptyValue';
 
-    fetch(`collection/filter/${type}/${value}`)
+
+
+    const listTypeInput = document.querySelector('input[name="list-type"]:checked');
+    const listTypeValue = listTypeInput ? listTypeInput.value : 'all';
+
+    const itemTypeInput = document.querySelector('input[name="item-type"]:checked');
+    const itemTypeValue = itemTypeInput ? itemTypeInput.value : 'all';
+
+
+    fetch(`collection/filter/${titleValue}/${listTypeValue}/${itemTypeValue}`)
         .then(response => response.text())
         .then(html => {
             const filteredItemsField = document.getElementById('filtered-items');

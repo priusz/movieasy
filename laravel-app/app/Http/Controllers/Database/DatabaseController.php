@@ -45,8 +45,8 @@ class DatabaseController
 
         $filters = $this->setFilters($request);
 
-        session::forget('allResults');
-        session::forget('actualResults');
+//        session::forget('allResults');
+//        session::forget('actualResults');
         session::put('currentPage', 1);
         session::put('maxPage', 1);
 

@@ -38,7 +38,7 @@ class CollectionController
         session::put('allCollection', $items);
         session::put('actualCollection', $items);
 
-        return view('collection.collection')->with('items', $items);
+        return view('collection.collection')->with(['items' => $items]);
 
     }
 
@@ -208,27 +208,53 @@ class CollectionController
 
     }
 
-    public function getFilteredItems(string $type, string $value) : View {
+    public function getFilteredItems(string $title, string $listType, string $itemType) : View {
 
         $collection = session('allCollection');
 
-        if ($value === 'emptyValue') {
+        if ($title === 'emptyValue') {
 
-            session(['actualCollection' => $collection]);
+            $actualItems = $collection;
 
-            return view('collection.results')->with('items', $collection);
+        } else {
 
-        }
-
-        if ($type === 'title-search') {
-
-            $actualItems = array_filter($collection, function ($item) use ($value) {
-                return str_contains(strtolower($item[0]['Title']), strtolower($value));
+            $actualItems = array_filter($collection, function ($item) use ($title) {
+                return str_contains(strtolower($item[0]['Title']), strtolower($title));
             });
 
-            session(['actualCollection' => $actualItems]);
-
         }
+
+        $actualItems = array_filter($actualItems, function ($item) use ($listType) {
+
+                if ($listType === "favorite") {
+                    return $item[0]['favorite'];
+                } else if ($listType === "watchlist") {
+                    return $item[0]['watchlist'];
+                } else if ($listType === "both") {
+                    return $item[0]['favorite'] && $item[0]['watchlist'];
+                } else {
+                    return true;
+                }
+
+        });
+
+        $actualItems = array_filter($actualItems, function ($item) use ($itemType) {
+
+            if ($itemType === "movie") {
+                return (isset($item[0]['Type']) && $item[0]['Type'] === $itemType);
+            } else if ($itemType === "series") {
+                return (isset($item[0]['Type']) && $item[0]['Type'] === $itemType);
+            } else if ($itemType === "season") {
+                return isset($item[0]['Season']);
+            } else if ($itemType === "episode") {
+                return (isset($item[0]['Type']) && $item[0]['Type'] === $itemType);
+            } else {
+                return true;
+            }
+
+        });
+
+        session(['actualCollection' => $actualItems]);
 
         return view('collection.results')->with('items', session('actualCollection'));
 
