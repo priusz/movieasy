@@ -93,7 +93,7 @@
                 </p>
             </fieldset>
             <p>
-                <a href="#">Title A-Z</a>
+                <a id="collection-sort" data-state="noSort" href="#">Title A -> Z</a>
             </p>
         </form>
         <p class="search__buttons">

@@ -23,8 +23,6 @@ function handleFilter() {
     const titleInput = document.querySelector('input[data-type="title-search"]');
     const titleValue = titleInput.value.trim() !== '' ? titleInput.value.trim() : 'emptyValue';
 
-
-
     const listTypeInput = document.querySelector('input[name="list-type"]:checked');
     const listTypeValue = listTypeInput ? listTypeInput.value : 'all';
 
