@@ -260,4 +260,24 @@ class CollectionController
 
     }
 
+    public function getSortedItems(string $state) : View {
+
+        $actualCollection = session('actualCollection');
+
+        if ($state === 'noSort' || $state === 'ZA') {
+            usort($actualCollection, function ($a, $b) {
+                return strcasecmp($a[0]['Title'], $b[0]['Title']);
+            });
+        } else {
+            usort($actualCollection, function ($a, $b) {
+                return strcasecmp($b[0]['Title'], $a[0]['Title']);
+            });
+        }
+
+        session(['actualCollection' => $actualCollection]);
+
+        return view('collection.results')->with(['items' => $actualCollection]);
+
+    }
+
 }

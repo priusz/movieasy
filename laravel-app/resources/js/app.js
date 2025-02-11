@@ -9,6 +9,7 @@ import sortButton from "./script/AuthUser/Database/sortButton.js";
 import posterButton from "./script/AuthUser/Database/posterButton.js";
 import paginationLinks from "./script/AuthUser/Database/paginationLinks.js";
 import collectionFilter from "./script/AuthUser/Collection/collectionFilter.js";
+import sortCollection from "./script/AuthUser/Collection/sortCollection.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     getThisYear();
@@ -22,4 +23,5 @@ document.addEventListener('DOMContentLoaded', function () {
     posterButton();
     paginationLinks();
     collectionFilter();
+    sortCollection();
 })
