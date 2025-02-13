@@ -1,5 +1,5 @@
 <p><span>Title: </span>{{ $details['Title'] ?? 'Unknown title' }}</p>
-<p><span id="modal-data-type" data-value="{{ $details['Type'] ?? 'Unknown type' }}">Type: </span>{{ $details['Type'] ?? 'Unknown type' }}</p>
+<p><span>Type: </span>{{ $details['Type'] ?? 'Unknown type' }}</p>
 @if($details['totalSeasons'] == 1)
     <p><span>Total season: </span>1</p>
 @elseif($details['totalSeasons'] == 'N/A' || $details['totalSeasons'] > 1)
@@ -25,15 +25,4 @@
         {{ $details['Plot'] ?? 'Unknown plot' }}
     </p>
 </details>
-@if($details['totalSeasons'] != 'N/A' && $details['totalSeasons'] > 1)
-    <details>
-        <summary>
-            <span>Seasons: </span>
-        </summary>
-        <p>
-            @for($x = 1; $x <= $details['totalSeasons']; $x++)
-                <a href="#" data-id="{{ $details['imdbID'] }}" data-season="{{ $x }}">{{ $x }}. season</a>
-            @endfor
-        </p>
-    </details>
-@endif
+

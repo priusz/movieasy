@@ -1,3 +1,5 @@
+import actionButton from "./actionButton.js";
+
 export default function collectionFilter() {
 
     const filterButtons = document.querySelectorAll('.collection-filter');
@@ -35,6 +37,8 @@ function handleFilter() {
         .then(html => {
             const filteredItemsField = document.getElementById('filtered-items');
             filteredItemsField.outerHTML = html;
+
+            actionButton();
         })
         .catch(error => console.error('Error filter the collection: ', error));
 

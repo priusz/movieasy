@@ -1,5 +1,5 @@
 <section class="{{ $item[0]['onTheList'] ? 'green' : '' }}{{ $item[0]['favorite'] ? '__red' : '' }}{{ $item[0]['watchlist'] ? '__blue' : '' }}"
-         id="modal-{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}">
+         id="{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}">
     @if(empty($item[1]))
         <h1>{{ $item[0]['Title'] }}</h1>
         <figure>
@@ -37,17 +37,32 @@
             @include('collection.card.season', ['details' => $item[0], 'additionalData' => $item[1]])
         @endif
     </div>
-    <p>
-        <a data-action-name="modal-my-list"
-           title="{{ $item[0]['onTheList'] ? 'Delete from my list' : 'Add to my list' }}"
-           data-id='{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}' href="#">{{ $item[0]['onTheList'] ? '✅' : '➕' }} My list</a>
-        @if($item[0]['onTheList'])
-            <a data-action-name="modal-favorite"
+    @if($item[0]['onTheList'] === true)
+        <p>
+            <a data-action-name="collection-my-list"
+               class="collection__action__button"
+               title="Delete from my list"
+               data-id='{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}'
+               data-type='{{ $item[0]['Type'] ?? 'season' }}'
+               data-season="{{ isset($item[0]['Type']) && ($item[0]['Type'] == 'movie' || $item[0]['Type'] == 'series') ? 0 : $item[0]['Season']}}"
+               data-episode="{{ isset($item[0]['Type']) && $item[0]['Type'] == 'episode' ? $item[0]['Episode'] : 0}}"
+               href="#">Delete from my list</a>
+            <a data-action-name="collection-favorite"
+               class="collection__action__button"
                title="{{ $item[0]['favorite'] ? 'Delete from favorites' : 'Add to favorites' }}"
-               data-id='{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}' href="#">{{ $item[0]['favorite'] ? '❤️' : '➕' }} Favorites</a>
-            <a data-action-name="modal-watchlist"
+               data-id='{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}'
+               data-type='{{ $item[0]['Type'] ?? 'season' }}'
+               data-season="{{ isset($item[0]['Type']) && ($item[0]['Type'] == 'movie' || $item[0]['Type'] == 'series') ? 0 : $item[0]['Season']}}"
+               data-episode="{{ isset($item[0]['Type']) && $item[0]['Type'] == 'episode' ? $item[0]['Episode'] : 0}}"
+               href="#">{{ $item[0]['favorite'] ? '❤️' : '➕' }} Favorites</a>
+            <a data-action-name="collection-watchlist"
+               class="collection__action__button"
                title="{{ $item[0]['watchlist'] ? 'Delete from watchlist' : 'Add to watchlist' }}"
-               data-id='{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}' href="#">{{ $item[0]['watchlist'] ? '📺' : '➕' }} Watchlist</a>
-        @endif
-    </p>
+               data-id='{{ isset($item[0]['Type']) && $item[0]['Type'] === 'episode' ? $item[0]['seriesID'] : $item[0]['imdbID'] }}'
+               data-type='{{ $item[0]['Type'] ?? 'season' }}'
+               data-season="{{ isset($item[0]['Type']) && ($item[0]['Type'] == 'movie' || $item[0]['Type'] == 'series') ? 0 : $item[0]['Season']}}"
+               data-episode="{{ isset($item[0]['Type']) && $item[0]['Type'] == 'episode' ? $item[0]['Episode'] : 0}}"
+               href="#">{{ $item[0]['watchlist'] ? '📺' : '➕' }} Watchlist</a>
+        </p>
+    @endif
 </section>

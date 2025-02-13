@@ -72,6 +72,9 @@ Route::middleware('auth')->group(function () {
     Route::get('collection/sort/{actualState}', [CollectionController::class, 'getSortedItems'])
         ->name('collectionSort');
 
+    Route::get('collection/update/{target}/{itemId}/{type}/{season}/{episode}', [CollectionController::class, 'refreshCollection'])
+        ->name('refreshCollection');
+
 });
 
 

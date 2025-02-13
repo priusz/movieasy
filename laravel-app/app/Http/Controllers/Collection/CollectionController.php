@@ -38,6 +38,8 @@ class CollectionController
         session::put('allCollection', $items);
         session::put('actualCollection', $items);
 
+//        dd($items);
+
         return view('collection.collection')->with(['items' => $items]);
 
     }
@@ -277,6 +279,96 @@ class CollectionController
         session(['actualCollection' => $actualCollection]);
 
         return view('collection.results')->with(['items' => $actualCollection]);
+
+    }
+
+    public function refreshCollection(string $target, string $itemId, string $type, string $season, string $episode) {
+
+        $allCollection = session('allCollection');
+        $actualCollection = session('actualCollection');
+
+        try {
+
+            $success = $this->collectionService->updateItem($target, $itemId, $type, $season, $episode);
+
+            if ($success) {
+
+                $allCollection = $this->updateCollectionInTheSession($allCollection, $target, $itemId, $type, $season, $episode);
+                session(['allCollection' => $allCollection]);
+
+                $actualCollection = $this->updateCollectionInTheSession($actualCollection, $target, $itemId, $type, $season, $episode);
+                session(['actualCollection' => $actualCollection]);
+
+                return view('collection.results')->with('items', $actualCollection);
+
+            }
+
+        } catch (Exception $e) {
+
+            Log::error('Refresh the collection error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Refresh the collection error! 😕');
+
+        }
+
+    }
+
+    private function updateCollectionInTheSession (array $sessionArray, string $target, string $itemId, string $type, string $season, string $episode) : array {
+
+        foreach($sessionArray as &$item) {
+
+            $continue = true;
+
+            if ($type === 'movie' || $type === 'series') {
+
+                if ($item[0]['imdbID'] === $itemId &&
+                    isset($item[0]['Type']) && ($item[0]['Type'] === 'movie' || $item[0]['Type'] === 'series')) {
+
+                    $this->updateItemKeys($item[0], $target);
+
+                    $continue = false;
+                }
+
+            } else if ($type === 'season') {
+
+                if ($item[0]['imdbID'] === $itemId &&
+                    isset($item[0]['Season']) && $item[0]['Season'] === $season &&
+                    !isset($item[0]['Type'])) {
+
+                    $this->updateItemKeys($item[0], $target);
+
+                    $continue = false;
+                }
+
+            } else if ($type === 'episode') {
+
+                if ($item[0]['seriesID'] === $itemId &&
+                    isset($item[0]['Season']) && $item[0]['Season'] === $season &&
+                    isset($item[0]['Episode']) && $item[0]['Episode'] === $episode &&
+                    isset($item[0]['Type']) && $item[0]['Type'] === 'episode') {
+
+                    $this->updateItemKeys($item[0], $target);
+
+                    $continue = false;
+                }
+
+            }
+
+            if ($continue === false) break;
+
+        }
+
+        return $sessionArray;
+    }
+
+    private function updateItemKeys(array &$item, string $target) : void {
+
+        if ($target === 'collection-my-list') {
+            $item['onTheList'] = false;
+        } else if ($target === 'collection-favorite') {
+            $item['favorite'] = !$item['favorite'];
+        } else if ($target === 'collection-watchlist') {
+            $item['watchlist'] = !$item['watchlist'];
+        }
 
     }
 
