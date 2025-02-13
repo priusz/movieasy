@@ -39,9 +39,9 @@ class CollectionRepository
 
 //            dd($onTheList, $result, $target, $type, $season, $episode);
 
-            if ($target === 'item-my-list' || $target === 'modal-my-list') return $this->switchItemMyList($onTheList, $userId, $id, $type, $season, $episode);
-            else if ($target === 'item-favorite' || $target === 'modal-favorite') return $this->switchItemFavorite($userId, $id, $type, $season, $episode);
-            else if ($target === 'item-watchlist' || $target === 'modal-watchlist') return $this->switchItemWatchlist($userId, $id, $type, $season, $episode);
+            if ($target === 'item-my-list' || $target === 'modal-my-list' || $target === 'collection-my-list') return $this->switchItemMyList($onTheList, $userId, $id, $type, $season, $episode);
+            else if ($target === 'item-favorite' || $target === 'modal-favorite' || $target === 'collection-favorite') return $this->switchItemFavorite($userId, $id, $type, $season, $episode);
+            else if ($target === 'item-watchlist' || $target === 'modal-watchlist' || $target === 'collection-watchlist') return $this->switchItemWatchlist($userId, $id, $type, $season, $episode);
 
         } catch (PDOException $e) {
             Log::error('Error toggling list status: ' . $e->getMessage(), [

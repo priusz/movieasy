@@ -1,5 +1,5 @@
 <p><span>Title: </span>{{ $details['Title'] ?? 'Unknown title' }}</p>
-<p><span id="modal-data-type" data-value="{{ $details['Type'] ?? 'Unknown type' }}">Type: </span>{{ $details['Type'] ?? 'Unknown type' }}</p>
+<p><span>Type: </span>{{ $details['Type'] ?? 'Unknown type' }}</p>
 <p><span>Year: </span>{{ $details['Year'] ?? 'Unknown year' }}</p>
 <p><span>Runtime: </span>{{ $details['Runtime'] ?? 'Unknown runtime' }}</p>
 <p><span>Released: </span>{{ $details['Released'] ?? 'Unknown release date' }}</p>

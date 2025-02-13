@@ -1,3 +1,5 @@
+import actionButton from "./actionButton.js";
+
 export default function sortCollection() {
 
     const sortButton = document.getElementById('collection-sort');
@@ -18,8 +20,10 @@ export default function sortCollection() {
                     : sortButton.setAttribute('data-state', 'ZA');
 
                 actualState === 'noSort' || actualState === 'ZA' ?
-                    sortButton.textContent = 'Title Z -> A'
-                    : sortButton.textContent = 'Title A -> Z';
+                    sortButton.textContent = 'Sort by title Z -> A'
+                    : sortButton.textContent = 'Sort by title A -> Z';
+
+                actionButton();
 
             })
             .catch(error => console.error('Error sort the collection: ', error));
