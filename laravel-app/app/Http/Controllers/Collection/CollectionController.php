@@ -247,7 +247,7 @@ class CollectionController
             } else if ($itemType === "series") {
                 return (isset($item[0]['Type']) && $item[0]['Type'] === $itemType);
             } else if ($itemType === "season") {
-                return isset($item[0]['Season']);
+                return isset($item[0]['Season']) && !isset($item[0]['Episode']);
             } else if ($itemType === "episode") {
                 return (isset($item[0]['Type']) && $item[0]['Type'] === $itemType);
             } else {
